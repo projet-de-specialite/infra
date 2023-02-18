@@ -25,15 +25,15 @@ module "projet_de_specialite_subnet_private" {
 
 module "projet_de_specialite_instance_public_app" {
   source                      = "./modules/compute"
-  instance_name               = "projet-de-specialite-instance-public-app"
-  instance_type               = "e2-medium"
-  instance_os                 = "debian-cloud/debian-11"
-  instance_ssh_key            = "gaetanlhf:${file("gaetanlhf-aible-gcp.pub")}"
-  network_name                = module.projet_de_specialite_vpc.vpc_name
+  compute_name               = "projet-de-specialite-compute-public-app"
+  compute_type               = "e2-medium"
+  compute_os                 = "debian-cloud/debian-11"
+  compute_ssh_key            = "gaetanlhf:${file("gaetanlhf-aible-gcp.pub")}"
+  vpc_name                = module.projet_de_specialite_vpc.vpc_name
   subnet_name                 = module.projet_de_specialite_subnet_public.subnet_name
-  instance_private_ip         = "10.1.0.2"
-  instance_enable_external_ip = true
-  instance_tags               = ["projet-de-specialite-compute", "projet-de-specialite-compute-public", "projet-de-specialite-compute-public-app"]
+  compute_private_ip         = "10.1.0.2"
+  compute_enable_external_ip = true
+  compute_tags               = ["projet-de-specialite-compute", "projet-de-specialite-compute-public", "projet-de-specialite-compute-public-app"]
   depends_on = [
     module.projet_de_specialite_vpc,
     module.projet_de_specialite_subnet_public
