@@ -17,7 +17,7 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [google_compute_compute.compute](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_compute) | resource |
+| [google_compute_instance.compute](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_instance) | resource |
 
 ## Inputs
 
