@@ -1,4 +1,4 @@
-resource "google_compute_compute" "compute" {
+resource "google_compute_instance" "compute" {
   machine_type = var.compute_type
   name         = var.compute_name
   tags         = var.compute_tags
