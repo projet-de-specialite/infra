@@ -41,17 +41,21 @@ module "projet_de_specialite_instance_public_app" {
 }
 
 module "projet_de_specialite_instance_cloud_sql_postgres" {
-  source                     = "./modules/cloud-sql-instance"
-  cloud_sql_instance_name    = "projet-de-specialite-postegres"
-  cloud_sql_instance_version = "POSTGRES_14"
-  cloud_sql_instance_tier    = "db-g1-small"
+  source                            = "./modules/cloud-sql-instance"
+  cloud_sql_instance_name           = "projet-de-specialite-postegres"
+  cloud_sql_instance_version        = "POSTGRES_14"
+  cloud_sql_instance_tier           = "db-g1-small"
+  cloud_sql_instance_enable_private = true
+  cloud_sql_instance_vpc            = module.projet_de_specialite_vpc.vpc_id
 }
 
 module "projet_de_specialite_instance_cloud_sql_mysql" {
-  source                     = "./modules/cloud-sql-instance"
-  cloud_sql_instance_name    = "projet-de-specialite-mysql"
-  cloud_sql_instance_version = "MYSQL_8_0"
-  cloud_sql_instance_tier    = "db-f1-micro"
+  source                            = "./modules/cloud-sql-instance"
+  cloud_sql_instance_name           = "projet-de-specialite-mysql"
+  cloud_sql_instance_version        = "MYSQL_8_0"
+  cloud_sql_instance_tier           = "db-f1-micro"
+  cloud_sql_instance_enable_private = true
+  cloud_sql_instance_vpc            = module.projet_de_specialite_vpc.vpc_id
 }
 
 # Sharonn
