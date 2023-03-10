@@ -44,7 +44,7 @@ module "projet_de_specialite_instance_public_app" {
 
 module "projet_de_specialite_instance_private_posts" {
   source                     = "./modules/compute"
-  compute_name               = "projet-de-specialite-compute-public-app"
+  compute_name               = "projet-de-specialite-compute-private-posts"
   compute_type               = "e2-medium"
   compute_os                 = "debian-cloud/debian-11"
   compute_ssh_key            = "\ngaetanlhf:${file("ssh_keys/gaetanlhf.pub")}\nsharonn:${file("ssh_keys/sharonn.pub")}"
@@ -57,4 +57,20 @@ module "projet_de_specialite_instance_private_posts" {
     module.projet_de_specialite_vpc,
     module.projet_de_specialite_subnet_private
   ]
+}
+
+module "projet_de_specialite_service_account_posts" {
+  source                       = "./modules/service-account"
+  service_account_account_id   = "service-account-posts"
+  service_account_display_name = "Service account for Posts"
+}
+
+module "projet_de_specialite_bucket_posts" {
+  source                             = "./modules/bucket"
+  bucket_name                        = "projet-de-specialite-bucket-posts"
+  bucket_location                    = "EU"
+  bucket_force_destroy               = "true"
+  bucket_storage_class               = "STANDARD"
+  bucket_uniform_bucket_level_access = "false"
+  bucket_public_access_prevention    = "inherited"
 }
