@@ -1,6 +1,6 @@
 resource "google_compute_firewall" "projet-de-specialite-firewall-public-allow-ssh" {
   name     = "projet-de-specialite-firewall-public-allow-ssh"
-  network  = module.cloud_sql_instance_vpc.vpc_name
+  network  = module.projet_de_specialite_vpc.vpc_name
   priority = 500
 
   allow {
@@ -14,7 +14,7 @@ resource "google_compute_firewall" "projet-de-specialite-firewall-public-allow-s
 
 resource "google_compute_firewall" "projet-de-specialite-firewall-private-interconnect" {
   name     = "projet-de-specialite-firewall-private-interconnect"
-  network  = module.cloud_sql_instance_vpc.vpc_name
+  network  = module.projet_de_specialite_vpc.vpc_name
   priority = 500
 
   allow {
@@ -28,7 +28,7 @@ resource "google_compute_firewall" "projet-de-specialite-firewall-private-interc
 
 resource "google_compute_firewall" "projet-de-specialite-firewall-public-private-interconnect" {
   name     = "projet-de-specialite-firewall-public-private-interconnect"
-  network  = module.cloud_sql_instance_vpc.vpc_name
+  network  = module.projet_de_specialite_vpc.vpc_name
   priority = 500
 
   allow {
@@ -43,7 +43,7 @@ resource "google_compute_firewall" "projet-de-specialite-firewall-public-private
 
 resource "google_compute_firewall" "projet-de-specialite-firewall-public-app-allow-http" {
   name     = "projet-de-specialite-firewall-public-app-allow-http"
-  network  = module.cloud_sql_instance_vpc.vpc_name
+  network  = module.projet_de_specialite_vpc.vpc_name
   priority = 500
 
   allow {
@@ -58,7 +58,7 @@ resource "google_compute_firewall" "projet-de-specialite-firewall-public-app-all
 
 resource "google_compute_firewall" "projet-de-specialite-firewall-deny-all" {
   name     = "projet-de-specialite-firewall-deny-all"
-  network  = module.cloud_sql_instance_vpc.vpc_name
+  network  = module.projet_de_specialite_vpc.vpc_name
   priority = 1000
 
 

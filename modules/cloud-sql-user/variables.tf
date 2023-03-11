@@ -8,7 +8,7 @@ variable "cloud_sql_user_instance" {
   description = "Name of the Cloud SQL instance"
 }
 
-variable "cloud_sql_user_userpassword" {
+variable "cloud_sql_user_type" {
   type        = string
-  description = "Password of the user"
+  description = "Type of the user"
 }
