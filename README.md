@@ -23,6 +23,11 @@
 | <a name="module_projet_de_specialite_db_posts"></a> [projet\_de\_specialite\_db\_posts](#module\_projet\_de\_specialite\_db\_posts) | ./modules/cloud-sql-database | n/a |
 | <a name="module_projet_de_specialite_db_profile"></a> [projet\_de\_specialite\_db\_profile](#module\_projet\_de\_specialite\_db\_profile) | ./modules/cloud-sql-database | n/a |
 | <a name="module_projet_de_specialite_db_subs"></a> [projet\_de\_specialite\_db\_subs](#module\_projet\_de\_specialite\_db\_subs) | ./modules/cloud-sql-database | n/a |
+| <a name="module_projet_de_specialite_db_user_comments"></a> [projet\_de\_specialite\_db\_user\_comments](#module\_projet\_de\_specialite\_db\_user\_comments) | ./modules/cloud-sql-user | n/a |
+| <a name="module_projet_de_specialite_db_user_mp"></a> [projet\_de\_specialite\_db\_user\_mp](#module\_projet\_de\_specialite\_db\_user\_mp) | ./modules/cloud-sql-user | n/a |
+| <a name="module_projet_de_specialite_db_user_posts"></a> [projet\_de\_specialite\_db\_user\_posts](#module\_projet\_de\_specialite\_db\_user\_posts) | ./modules/cloud-sql-user | n/a |
+| <a name="module_projet_de_specialite_db_user_profile"></a> [projet\_de\_specialite\_db\_user\_profile](#module\_projet\_de\_specialite\_db\_user\_profile) | ./modules/cloud-sql-user | n/a |
+| <a name="module_projet_de_specialite_db_user_subs"></a> [projet\_de\_specialite\_db\_user\_subs](#module\_projet\_de\_specialite\_db\_user\_subs) | ./modules/cloud-sql-user | n/a |
 | <a name="module_projet_de_specialite_instance_cloud_sql_mysql"></a> [projet\_de\_specialite\_instance\_cloud\_sql\_mysql](#module\_projet\_de\_specialite\_instance\_cloud\_sql\_mysql) | ./modules/cloud-sql-instance | n/a |
 | <a name="module_projet_de_specialite_instance_cloud_sql_postgres"></a> [projet\_de\_specialite\_instance\_cloud\_sql\_postgres](#module\_projet\_de\_specialite\_instance\_cloud\_sql\_postgres) | ./modules/cloud-sql-instance | n/a |
 | <a name="module_projet_de_specialite_instance_private_comments"></a> [projet\_de\_specialite\_instance\_private\_comments](#module\_projet\_de\_specialite\_instance\_private\_comments) | ./modules/compute | n/a |
@@ -45,11 +50,11 @@
 
 | Name | Type |
 |------|------|
-| [google_sql_user.projet_de_specialite_db_user_comments](https://registry.terraform.io/providers/hashicorp/google/4.56.0/docs/resources/sql_user) | resource |
-| [google_sql_user.projet_de_specialite_db_user_mp](https://registry.terraform.io/providers/hashicorp/google/4.56.0/docs/resources/sql_user) | resource |
-| [google_sql_user.projet_de_specialite_db_user_posts](https://registry.terraform.io/providers/hashicorp/google/4.56.0/docs/resources/sql_user) | resource |
-| [google_sql_user.projet_de_specialite_db_user_profile](https://registry.terraform.io/providers/hashicorp/google/4.56.0/docs/resources/sql_user) | resource |
-| [google_sql_user.projet_de_specialite_db_user_subs](https://registry.terraform.io/providers/hashicorp/google/4.56.0/docs/resources/sql_user) | resource |
+| [google_compute_firewall.projet-de-specialite-firewall-deny-all](https://registry.terraform.io/providers/hashicorp/google/4.56.0/docs/resources/compute_firewall) | resource |
+| [google_compute_firewall.projet-de-specialite-firewall-private-interconnect](https://registry.terraform.io/providers/hashicorp/google/4.56.0/docs/resources/compute_firewall) | resource |
+| [google_compute_firewall.projet-de-specialite-firewall-public-allow-ssh](https://registry.terraform.io/providers/hashicorp/google/4.56.0/docs/resources/compute_firewall) | resource |
+| [google_compute_firewall.projet-de-specialite-firewall-public-app-allow-http](https://registry.terraform.io/providers/hashicorp/google/4.56.0/docs/resources/compute_firewall) | resource |
+| [google_compute_firewall.projet-de-specialite-firewall-public-private-interconnect](https://registry.terraform.io/providers/hashicorp/google/4.56.0/docs/resources/compute_firewall) | resource |
 
 ## Inputs
 
