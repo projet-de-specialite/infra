@@ -109,8 +109,8 @@ module "projet_de_specialite_db_posts" {
 }
 
 module "projet_de_specialite_db_user_posts" {
-  source   = "./modules/cloud-sql-user"
-  cloud_sql_user_username     = module.projet_de_specialite_service_account_posts.service_account_id
+  source                  = "./modules/cloud-sql-user"
+  cloud_sql_user_username = module.projet_de_specialite_service_account_posts.service_account_id
   cloud_sql_user_instance = module.projet_de_specialite_instance_cloud_sql_postgres.db_instance_name
   cloud_sql_user_type     = "CLOUD_IAM_SERVICE_ACCOUNT"
   depends_on = [
@@ -170,8 +170,8 @@ module "projet_de_specialite_db_profile" {
 }
 
 module "projet_de_specialite_db_user_profile" {
-  source   = "./modules/cloud-sql-user"
-  cloud_sql_user_username     = module.projet_de_specialite_service_account_profile.service_account_id
+  source                  = "./modules/cloud-sql-user"
+  cloud_sql_user_username = module.projet_de_specialite_service_account_profile.service_account_id
   cloud_sql_user_instance = module.projet_de_specialite_instance_cloud_sql_postgres.db_instance_name
   cloud_sql_user_type     = "CLOUD_IAM_SERVICE_ACCOUNT"
   depends_on = [
@@ -218,8 +218,8 @@ module "projet_de_specialite_db_comments" {
 }
 
 module "projet_de_specialite_db_user_comments" {
-  source   = "./modules/cloud-sql-user"
-  cloud_sql_user_username     = module.projet_de_specialite_service_account_comments.service_account_id
+  source                  = "./modules/cloud-sql-user"
+  cloud_sql_user_username = module.projet_de_specialite_service_account_comments.service_account_id
   cloud_sql_user_instance = module.projet_de_specialite_instance_cloud_sql_postgres.db_instance_name
   cloud_sql_user_type     = "CLOUD_IAM_SERVICE_ACCOUNT"
   depends_on = [
@@ -266,8 +266,8 @@ module "projet_de_specialite_db_subs" {
 }
 
 module "projet_de_specialite_db_user_subs" {
-  source   = "./modules/cloud-sql-user"
-  cloud_sql_user_username     = module.projet_de_specialite_service_account_subs.service_account_id
+  source                  = "./modules/cloud-sql-user"
+  cloud_sql_user_username = module.projet_de_specialite_service_account_subs.service_account_id
   cloud_sql_user_instance = module.projet_de_specialite_instance_cloud_sql_postgres.db_instance_name
   cloud_sql_user_type     = "CLOUD_IAM_SERVICE_ACCOUNT"
   depends_on = [
@@ -314,8 +314,8 @@ module "projet_de_specialite_db_mp" {
 }
 
 module "projet_de_specialite_db_user_mp" {
-  source   = "./modules/cloud-sql-user"
-  cloud_sql_user_username     = module.projet_de_specialite_service_account_mp.service_account_id
+  source                  = "./modules/cloud-sql-user"
+  cloud_sql_user_username = module.projet_de_specialite_service_account_mp.service_account_id
   cloud_sql_user_instance = module.projet_de_specialite_instance_cloud_sql_mysql.db_instance_name
   cloud_sql_user_type     = "CLOUD_IAM_SERVICE_ACCOUNT"
   depends_on = [
