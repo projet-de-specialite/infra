@@ -26,7 +26,7 @@ module "projet_de_specialite_subnet_private" {
 module "projet_de_specialite_instance_public_app" {
   source                     = "./modules/compute"
   compute_name               = "projet-de-specialite-compute-public-app"
-  compute_type               = "e2-medium"
+  compute_type               = "e2-micro"
   compute_os                 = "debian-cloud/debian-11"
   compute_ssh_key            = "gaetanlhf:${file("ssh_keys/gaetanlhf.pub")}\nsharonn:${file("ssh_keys/sharonn.pub")}\nmouad:${file("ssh_keys/mouad.pub")}\nloic:${file("ssh_keys/loic.pub")}\naugustin:${file("ssh_keys/augustin.pub")}\nsohaib:${file("ssh_keys/sohaib.pub")}"
   vpc_name                   = module.projet_de_specialite_vpc.vpc_name
@@ -63,7 +63,7 @@ module "projet_de_specialite_instance_cloud_sql_mysql" {
 module "projet_de_specialite_instance_private_posts" {
   source                         = "./modules/compute"
   compute_name                   = "projet-de-specialite-compute-private-posts"
-  compute_type                   = "e2-medium"
+  compute_type                   = "e2-micro"
   compute_os                     = "debian-cloud/debian-11"
   compute_ssh_key                = "\ngaetanlhf:${file("ssh_keys/gaetanlhf.pub")}\nsharonn:${file("ssh_keys/sharonn.pub")}"
   vpc_name                       = module.projet_de_specialite_vpc.vpc_name
@@ -124,7 +124,7 @@ module "projet_de_specialite_db_user_posts" {
 module "projet_de_specialite_instance_private_profile" {
   source                         = "./modules/compute"
   compute_name                   = "projet-de-specialite-compute-private-profile"
-  compute_type                   = "e2-medium"
+  compute_type                   = "e2-micro"
   compute_os                     = "debian-cloud/debian-11"
   compute_ssh_key                = "\ngaetanlhf:${file("ssh_keys/gaetanlhf.pub")}\nmouad:${file("ssh_keys/mouad.pub")}"
   vpc_name                       = module.projet_de_specialite_vpc.vpc_name
@@ -185,7 +185,7 @@ module "projet_de_specialite_db_user_profile" {
 module "projet_de_specialite_instance_private_comments" {
   source                         = "./modules/compute"
   compute_name                   = "projet-de-specialite-compute-private-comments"
-  compute_type                   = "e2-medium"
+  compute_type                   = "e2-micro"
   compute_os                     = "debian-cloud/debian-11"
   compute_ssh_key                = "\ngaetanlhf:${file("ssh_keys/gaetanlhf.pub")}\nloic:${file("ssh_keys/loic.pub")}"
   vpc_name                       = module.projet_de_specialite_vpc.vpc_name
@@ -233,7 +233,7 @@ module "projet_de_specialite_db_user_comments" {
 module "projet_de_specialite_instance_private_subs" {
   source                         = "./modules/compute"
   compute_name                   = "projet-de-specialite-compute-private-subs"
-  compute_type                   = "e2-medium"
+  compute_type                   = "e2-micro"
   compute_os                     = "debian-cloud/debian-11"
   compute_ssh_key                = "\ngaetanlhf:${file("ssh_keys/gaetanlhf.pub")}\naugustin:${file("ssh_keys/augustin.pub")}"
   vpc_name                       = module.projet_de_specialite_vpc.vpc_name
@@ -281,7 +281,7 @@ module "projet_de_specialite_db_user_subs" {
 module "projet_de_specialite_instance_private_mp" {
   source                         = "./modules/compute"
   compute_name                   = "projet-de-specialite-compute-private-mp"
-  compute_type                   = "e2-medium"
+  compute_type                   = "e2-micro"
   compute_os                     = "debian-cloud/debian-11"
   compute_ssh_key                = "\ngaetanlhf:${file("ssh_keys/gaetanlhf.pub")}\nsohaib:${file("ssh_keys/sohaib.pub")}"
   vpc_name                       = module.projet_de_specialite_vpc.vpc_name
@@ -329,7 +329,7 @@ module "projet_de_specialite_db_user_mp" {
 module "projet_de_specialite_instance_private_feed" {
   source                     = "./modules/compute"
   compute_name               = "projet-de-specialite-compute-private-feed"
-  compute_type               = "e2-medium"
+  compute_type               = "e2-micro"
   compute_os                 = "debian-cloud/debian-11"
   compute_ssh_key            = "\ngaetanlhf:${file("ssh_keys/gaetanlhf.pub")}"
   vpc_name                   = module.projet_de_specialite_vpc.vpc_name
