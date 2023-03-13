@@ -25,7 +25,7 @@ module "projet_de_specialite_subnet_private" {
 
 module "projet_de_specialite_router" {
   source        = "./modules/router"
-  router_name   = "aible-streaming-router"
+  router_name   = "projet-de-specialite-router"
   subnet_region = module.projet_de_specialite_subnet_public.subnet_region
   vpc_id        = module.projet_de_specialite_vpc.vpc_id
   depends_on = [
@@ -450,5 +450,25 @@ module "projet_de_specialite_instance_private_feed" {
   depends_on = [
     module.projet_de_specialite_vpc,
     module.projet_de_specialite_subnet_private
+  ]
+}
+
+module "projet_de_specialite_dns_zone" {
+  source            = "./modules/dns-zone"
+  dns_zone_name     = "projet-de-specialite-dns-zone"
+  dns_zone_name_url = "apowoyo.ovh."
+}
+
+
+module "projet_de_specialite_dns_record_compute_instance_public_app" {
+  source             = "./modules/dns-record"
+  dns_record_name    = "app"
+  dns_record_type    = "A"
+  dns_record_rrdatas = [module.projet_de_specialite_instance_public_app.compute_public_ip]
+  dns_zone_name      = module.projet_de_specialite_dns_zone.dns_zone_name
+  dns_zone_dns_name  = module.projet_de_specialite_dns_zone.dns_zone_name_url
+  depends_on = [
+    module.projet_de_specialite_instance_public_app,
+    module.projet_de_specialite_dns_zone
   ]
 }
