@@ -23,6 +23,8 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_cloud_sql_instance_deletion_protection"></a> [cloud\_sql\_instance\_deletion\_protection](#input\_cloud\_sql\_instance\_deletion\_protection) | Deletion protection | `string` | n/a | yes |
+| <a name="input_cloud_sql_instance_enable_iam_authentication"></a> [cloud\_sql\_instance\_enable\_iam\_authentication](#input\_cloud\_sql\_instance\_enable\_iam\_authentication) | Enable or disable Cloud IAM authentication | `bool` | n/a | yes |
 | <a name="input_cloud_sql_instance_enable_private"></a> [cloud\_sql\_instance\_enable\_private](#input\_cloud\_sql\_instance\_enable\_private) | Enable or disable private IP instance | `bool` | n/a | yes |
 | <a name="input_cloud_sql_instance_name"></a> [cloud\_sql\_instance\_name](#input\_cloud\_sql\_instance\_name) | Cloud SQL instance name | `string` | n/a | yes |
 | <a name="input_cloud_sql_instance_tier"></a> [cloud\_sql\_instance\_tier](#input\_cloud\_sql\_instance\_tier) | Cloud SQL VM | `string` | n/a | yes |
