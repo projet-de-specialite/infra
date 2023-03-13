@@ -32,6 +32,8 @@
 | <a name="module_projet_de_specialite_db_user_posts"></a> [projet\_de\_specialite\_db\_user\_posts](#module\_projet\_de\_specialite\_db\_user\_posts) | ./modules/cloud-sql-user | n/a |
 | <a name="module_projet_de_specialite_db_user_profile"></a> [projet\_de\_specialite\_db\_user\_profile](#module\_projet\_de\_specialite\_db\_user\_profile) | ./modules/cloud-sql-user | n/a |
 | <a name="module_projet_de_specialite_db_user_subs"></a> [projet\_de\_specialite\_db\_user\_subs](#module\_projet\_de\_specialite\_db\_user\_subs) | ./modules/cloud-sql-user | n/a |
+| <a name="module_projet_de_specialite_dns_record_compute_instance_public_app"></a> [projet\_de\_specialite\_dns\_record\_compute\_instance\_public\_app](#module\_projet\_de\_specialite\_dns\_record\_compute\_instance\_public\_app) | ./modules/dns-record | n/a |
+| <a name="module_projet_de_specialite_dns_zone"></a> [projet\_de\_specialite\_dns\_zone](#module\_projet\_de\_specialite\_dns\_zone) | ./modules/dns-zone | n/a |
 | <a name="module_projet_de_specialite_instance_cloud_sql_mysql"></a> [projet\_de\_specialite\_instance\_cloud\_sql\_mysql](#module\_projet\_de\_specialite\_instance\_cloud\_sql\_mysql) | ./modules/cloud-sql-instance | n/a |
 | <a name="module_projet_de_specialite_instance_cloud_sql_postgres"></a> [projet\_de\_specialite\_instance\_cloud\_sql\_postgres](#module\_projet\_de\_specialite\_instance\_cloud\_sql\_postgres) | ./modules/cloud-sql-instance | n/a |
 | <a name="module_projet_de_specialite_instance_private_auth"></a> [projet\_de\_specialite\_instance\_private\_auth](#module\_projet\_de\_specialite\_instance\_private\_auth) | ./modules/compute | n/a |
@@ -64,6 +66,8 @@
 | [google_compute_firewall.projet-de-specialite-firewall-public-allow-ssh](https://registry.terraform.io/providers/hashicorp/google/4.56.0/docs/resources/compute_firewall) | resource |
 | [google_compute_firewall.projet-de-specialite-firewall-public-app-allow-http](https://registry.terraform.io/providers/hashicorp/google/4.56.0/docs/resources/compute_firewall) | resource |
 | [google_compute_firewall.projet-de-specialite-firewall-public-private-interconnect](https://registry.terraform.io/providers/hashicorp/google/4.56.0/docs/resources/compute_firewall) | resource |
+| [google_iam_policy.projet_de_specialite_iam_bucket](https://registry.terraform.io/providers/hashicorp/google/4.56.0/docs/data-sources/iam_policy) | data source |
+| [google_iam_policy.projet_de_specialite_iam_cloud_sql](https://registry.terraform.io/providers/hashicorp/google/4.56.0/docs/data-sources/iam_policy) | data source |
 
 ## Inputs
 
