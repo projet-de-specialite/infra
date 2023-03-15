@@ -1,3 +1,7 @@
+locals {
+  is_postgres = length(split("POSTGRES", var.cloud_sql_instance_version)) > 1
+}
+
 resource "google_sql_database_instance" "cloud_sql_instance" {
   name                = var.cloud_sql_instance_name
   database_version    = var.cloud_sql_instance_version
@@ -15,7 +19,7 @@ resource "google_sql_database_instance" "cloud_sql_instance" {
     dynamic "database_flags" {
       for_each = var.cloud_sql_instance_enable_iam_authentication == false ? [] : [1]
       content {
-        name  = "cloudsql_iam_authentication"
+        name  = local.is_postgres ? "cloudsql.iam_authentication" : "cloudsql_iam_authentication"
         value = "on"
       }
     }
