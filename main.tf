@@ -67,6 +67,25 @@ module "projet_de_specialite_instance_public_app" {
   ]
 }
 
+module "projet_de_specialite_dns_zone" {
+  source            = "./modules/dns-zone"
+  dns_zone_name     = "projet-de-specialite-dns-zone"
+  dns_zone_name_url = "apowoyo.ovh."
+}
+
+module "projet_de_specialite_dns_record_compute_instance_public_app" {
+  source             = "./modules/dns-record"
+  dns_record_name    = "app"
+  dns_record_type    = "A"
+  dns_record_rrdatas = [module.projet_de_specialite_instance_public_app.compute_public_ip]
+  dns_zone_name      = module.projet_de_specialite_dns_zone.dns_zone_name
+  dns_zone_dns_name  = module.projet_de_specialite_dns_zone.dns_zone_name_url
+  depends_on = [
+    module.projet_de_specialite_instance_public_app,
+    module.projet_de_specialite_dns_zone
+  ]
+}
+
 module "projet_de_specialite_cloud_sql_private_ip" {
   source                               = "./modules/compute-global-address"
   compute_global_address_name          = "cloud-sql-private-ip"
@@ -149,22 +168,24 @@ module "projet_de_specialite_service_account_auth" {
 }
 
 module "projet_de_specialite_db_auth" {
-  source                      = "./modules/cloud-sql-database"
-  cloud_sql_database_name     = "projet-de-specialite-db-auth"
-  cloud_sql_database_instance = module.projet_de_specialite_instance_cloud_sql_mysql.db_instance_name
+  source                       = "./modules/cloud-sql-database"
+  cloud_sql_database_name      = "projet-de-specialite-db-auth"
+  cloud_sql_database_instance  = module.projet_de_specialite_instance_cloud_sql_postgres.db_instance_name
+  cloud_sql_database_charset   = "UTF8"
+  cloud_sql_database_collation = "en_US.UTF8"
   depends_on = [
-    module.projet_de_specialite_instance_cloud_sql_mysql
+    module.projet_de_specialite_instance_cloud_sql_postgres
   ]
 }
 
 module "projet_de_specialite_db_user_auth" {
   source                  = "./modules/cloud-sql-user"
-  cloud_sql_user_username = module.projet_de_specialite_service_account_auth.service_account_email
-  cloud_sql_user_instance = module.projet_de_specialite_instance_cloud_sql_mysql.db_instance_name
+  cloud_sql_user_username = trimsuffix(module.projet_de_specialite_service_account_auth.service_account_email, ".gserviceaccount.com")
+  cloud_sql_user_instance = module.projet_de_specialite_instance_cloud_sql_postgres.db_instance_name
   cloud_sql_user_type     = "CLOUD_IAM_SERVICE_ACCOUNT"
   depends_on = [
     module.projet_de_specialite_service_account_auth,
-    module.projet_de_specialite_instance_cloud_sql_mysql
+    module.projet_de_specialite_instance_cloud_sql_postgres
   ]
 }
 
@@ -210,22 +231,24 @@ module "projet_de_specialite_bucket_posts" {
 }
 
 module "projet_de_specialite_db_posts" {
-  source                      = "./modules/cloud-sql-database"
-  cloud_sql_database_name     = "projet-de-specialite-db-posts"
-  cloud_sql_database_instance = module.projet_de_specialite_instance_cloud_sql_mysql.db_instance_name
+  source                       = "./modules/cloud-sql-database"
+  cloud_sql_database_name      = "projet-de-specialite-db-posts"
+  cloud_sql_database_instance  = module.projet_de_specialite_instance_cloud_sql_postgres.db_instance_name
+  cloud_sql_database_charset   = "UTF8"
+  cloud_sql_database_collation = "en_US.UTF8"
   depends_on = [
-    module.projet_de_specialite_instance_cloud_sql_mysql
+    module.projet_de_specialite_instance_cloud_sql_postgres
   ]
 }
 
 module "projet_de_specialite_db_user_posts" {
   source                  = "./modules/cloud-sql-user"
-  cloud_sql_user_username = module.projet_de_specialite_service_account_posts.service_account_email
-  cloud_sql_user_instance = module.projet_de_specialite_instance_cloud_sql_mysql.db_instance_name
+  cloud_sql_user_username = trimsuffix(module.projet_de_specialite_service_account_posts.service_account_email, ".gserviceaccount.com")
+  cloud_sql_user_instance = module.projet_de_specialite_instance_cloud_sql_postgres.db_instance_name
   cloud_sql_user_type     = "CLOUD_IAM_SERVICE_ACCOUNT"
   depends_on = [
     module.projet_de_specialite_service_account_posts,
-    module.projet_de_specialite_instance_cloud_sql_mysql
+    module.projet_de_specialite_instance_cloud_sql_postgres
   ]
 }
 
@@ -271,9 +294,11 @@ module "projet_de_specialite_bucket_profile" {
 }
 
 module "projet_de_specialite_db_profile" {
-  source                      = "./modules/cloud-sql-database"
-  cloud_sql_database_name     = "projet-de-specialite-db-profile"
-  cloud_sql_database_instance = module.projet_de_specialite_instance_cloud_sql_postgres.db_instance_name
+  source                       = "./modules/cloud-sql-database"
+  cloud_sql_database_name      = "projet-de-specialite-db-profile"
+  cloud_sql_database_instance  = module.projet_de_specialite_instance_cloud_sql_postgres.db_instance_name
+  cloud_sql_database_charset   = "UTF8"
+  cloud_sql_database_collation = "en_US.UTF8"
   depends_on = [
     module.projet_de_specialite_instance_cloud_sql_postgres
   ]
@@ -281,7 +306,7 @@ module "projet_de_specialite_db_profile" {
 
 module "projet_de_specialite_db_user_profile" {
   source                  = "./modules/cloud-sql-user"
-  cloud_sql_user_username = module.projet_de_specialite_service_account_profile.service_account_id
+  cloud_sql_user_username = trimsuffix(module.projet_de_specialite_service_account_profile.service_account_email, ".gserviceaccount.com")
   cloud_sql_user_instance = module.projet_de_specialite_instance_cloud_sql_postgres.db_instance_name
   cloud_sql_user_type     = "CLOUD_IAM_SERVICE_ACCOUNT"
   depends_on = [
@@ -314,14 +339,16 @@ module "projet_de_specialite_instance_private_comments" {
 
 module "projet_de_specialite_service_account_comments" {
   source                       = "./modules/service-account"
-  service_account_account_id   = "service-account-comments"
+  service_account_account_id   = "sa-comments"
   service_account_display_name = "Service account for comments"
 }
 
 module "projet_de_specialite_db_comments" {
-  source                      = "./modules/cloud-sql-database"
-  cloud_sql_database_name     = "projet-de-specialite-db-comments"
-  cloud_sql_database_instance = module.projet_de_specialite_instance_cloud_sql_postgres.db_instance_name
+  source                       = "./modules/cloud-sql-database"
+  cloud_sql_database_name      = "projet-de-specialite-db-comments"
+  cloud_sql_database_instance  = module.projet_de_specialite_instance_cloud_sql_postgres.db_instance_name
+  cloud_sql_database_charset   = "UTF8"
+  cloud_sql_database_collation = "en_US.UTF8"
   depends_on = [
     module.projet_de_specialite_instance_cloud_sql_postgres
   ]
@@ -329,7 +356,7 @@ module "projet_de_specialite_db_comments" {
 
 module "projet_de_specialite_db_user_comments" {
   source                  = "./modules/cloud-sql-user"
-  cloud_sql_user_username = module.projet_de_specialite_service_account_comments.service_account_id
+  cloud_sql_user_username = trimsuffix(module.projet_de_specialite_service_account_comments.service_account_email, ".gserviceaccount.com")
   cloud_sql_user_instance = module.projet_de_specialite_instance_cloud_sql_postgres.db_instance_name
   cloud_sql_user_type     = "CLOUD_IAM_SERVICE_ACCOUNT"
   depends_on = [
@@ -367,9 +394,11 @@ module "projet_de_specialite_service_account_subs" {
 }
 
 module "projet_de_specialite_db_subs" {
-  source                      = "./modules/cloud-sql-database"
-  cloud_sql_database_name     = "projet-de-specialite-db-subs"
-  cloud_sql_database_instance = module.projet_de_specialite_instance_cloud_sql_postgres.db_instance_name
+  source                       = "./modules/cloud-sql-database"
+  cloud_sql_database_name      = "projet-de-specialite-db-subs"
+  cloud_sql_database_instance  = module.projet_de_specialite_instance_cloud_sql_postgres.db_instance_name
+  cloud_sql_database_charset   = "UTF8"
+  cloud_sql_database_collation = "en_US.UTF8"
   depends_on = [
     module.projet_de_specialite_instance_cloud_sql_postgres
   ]
@@ -377,7 +406,7 @@ module "projet_de_specialite_db_subs" {
 
 module "projet_de_specialite_db_user_subs" {
   source                  = "./modules/cloud-sql-user"
-  cloud_sql_user_username = module.projet_de_specialite_service_account_subs.service_account_id
+  cloud_sql_user_username = trimsuffix(module.projet_de_specialite_service_account_subs.service_account_email, ".gserviceaccount.com")
   cloud_sql_user_instance = module.projet_de_specialite_instance_cloud_sql_postgres.db_instance_name
   cloud_sql_user_type     = "CLOUD_IAM_SERVICE_ACCOUNT"
   depends_on = [
@@ -425,7 +454,7 @@ module "projet_de_specialite_db_mp" {
 
 module "projet_de_specialite_db_user_mp" {
   source                  = "./modules/cloud-sql-user"
-  cloud_sql_user_username = module.projet_de_specialite_service_account_mp.service_account_id
+  cloud_sql_user_username = module.projet_de_specialite_service_account_mp.service_account_email
   cloud_sql_user_instance = module.projet_de_specialite_instance_cloud_sql_mysql.db_instance_name
   cloud_sql_user_type     = "CLOUD_IAM_SERVICE_ACCOUNT"
   depends_on = [
@@ -450,25 +479,5 @@ module "projet_de_specialite_instance_private_feed" {
   depends_on = [
     module.projet_de_specialite_vpc,
     module.projet_de_specialite_subnet_private
-  ]
-}
-
-module "projet_de_specialite_dns_zone" {
-  source            = "./modules/dns-zone"
-  dns_zone_name     = "projet-de-specialite-dns-zone"
-  dns_zone_name_url = "apowoyo.ovh."
-}
-
-
-module "projet_de_specialite_dns_record_compute_instance_public_app" {
-  source             = "./modules/dns-record"
-  dns_record_name    = "app"
-  dns_record_type    = "A"
-  dns_record_rrdatas = [module.projet_de_specialite_instance_public_app.compute_public_ip]
-  dns_zone_name      = module.projet_de_specialite_dns_zone.dns_zone_name
-  dns_zone_dns_name  = module.projet_de_specialite_dns_zone.dns_zone_name_url
-  depends_on = [
-    module.projet_de_specialite_instance_public_app,
-    module.projet_de_specialite_dns_zone
   ]
 }
