@@ -55,7 +55,7 @@ module "projet_de_specialite_instance_public_app" {
   compute_name               = "projet-de-specialite-compute-public-app"
   compute_type               = "e2-micro"
   compute_os                 = "debian-cloud/debian-11"
-  compute_ssh_key            = "gaetanlhf:${file("ssh_keys/gaetanlhf.pub")}\nsharonn:${file("ssh_keys/sharonn.pub")}\nmouad:${file("ssh_keys/mouad.pub")}\nloic:${file("ssh_keys/loic.pub")}\naugustin:${file("ssh_keys/augustin.pub")}\nsohaib:${file("ssh_keys/sohaib.pub")}"
+  compute_ssh_key            = "gaetanlhf:${file("ssh_keys/gaetanlhf.pub")}\nsharonn:${file("ssh_keys/sharonn.pub")}\nchorouq:${file("ssh_keys/chorouq.pub")}\nmouad:${file("ssh_keys/mouad.pub")}\nloic:${file("ssh_keys/loic.pub")}\naugustin:${file("ssh_keys/augustin.pub")}\nsohaib:${file("ssh_keys/sohaib.pub")}"
   vpc_name                   = module.projet_de_specialite_vpc.vpc_name
   subnet_name                = module.projet_de_specialite_subnet_public.subnet_name
   compute_private_ip         = "10.1.0.2"
@@ -139,14 +139,14 @@ module "projet_de_specialite_instance_cloud_sql_mysql" {
   ]
 }
 
-# Chourouq
+# Chorouq
 
 module "projet_de_specialite_instance_private_auth" {
   source                         = "./modules/compute"
   compute_name                   = "projet-de-specialite-compute-private-auth"
   compute_type                   = "e2-micro"
   compute_os                     = "debian-cloud/debian-11"
-  compute_ssh_key                = "\ngaetanlhf:${file("ssh_keys/gaetanlhf.pub")}\nsharonn:${file("ssh_keys/chourouq.pub")}"
+  compute_ssh_key                = "\ngaetanlhf:${file("ssh_keys/gaetanlhf.pub")}\nchorouq:${file("ssh_keys/chorouq.pub")}"
   vpc_name                       = module.projet_de_specialite_vpc.vpc_name
   subnet_name                    = module.projet_de_specialite_subnet_private.subnet_name
   compute_private_ip             = "10.2.0.2"
