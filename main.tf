@@ -14,11 +14,11 @@ module "projet_de_specialite_subnet_public" {
 }
 
 module "projet_de_specialite_subnet_private" {
-  source              = "./modules/subnet"
-  subnet_name         = "subnet-private"
-  subnet_ip_range     = "10.2.0.0/16"
+  source                          = "./modules/subnet"
+  subnet_name                     = "subnet-private"
+  subnet_ip_range                 = "10.2.0.0/16"
   subnet_private_ip_google_access = true
-  subnet_network_name = module.projet_de_specialite_vpc.vpc_name
+  subnet_network_name             = module.projet_de_specialite_vpc.vpc_name
   depends_on = [
     module.projet_de_specialite_vpc
   ]
