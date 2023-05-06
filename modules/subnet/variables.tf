@@ -12,3 +12,9 @@ variable "subnet_network_name" {
   type        = string
   description = "Name of the network you would like to create a subnet"
 }
+
+variable "subnet_private_ip_google_access" {
+  type        = bool
+  default     = false
+  description = "Enable Private IP Google access"
+}
