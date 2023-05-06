@@ -4,13 +4,13 @@
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_google"></a> [google](#requirement\_google) | 4.56.0 |
+| <a name="requirement_google"></a> [google](#requirement\_google) | 4.61.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | 4.56.0 |
+| <a name="provider_google"></a> [google](#provider\_google) | 4.61.0 |
 
 ## Modules
 
@@ -60,17 +60,18 @@
 
 | Name | Type |
 |------|------|
-| [google_compute_firewall.projet-de-specialite-cloud-sql](https://registry.terraform.io/providers/hashicorp/google/4.56.0/docs/resources/compute_firewall) | resource |
-| [google_compute_firewall.projet-de-specialite-firewall-deny-all](https://registry.terraform.io/providers/hashicorp/google/4.56.0/docs/resources/compute_firewall) | resource |
-| [google_compute_firewall.projet-de-specialite-firewall-private-interconnect](https://registry.terraform.io/providers/hashicorp/google/4.56.0/docs/resources/compute_firewall) | resource |
-| [google_compute_firewall.projet-de-specialite-firewall-public-allow-ssh](https://registry.terraform.io/providers/hashicorp/google/4.56.0/docs/resources/compute_firewall) | resource |
-| [google_compute_firewall.projet-de-specialite-firewall-public-app-allow-http](https://registry.terraform.io/providers/hashicorp/google/4.56.0/docs/resources/compute_firewall) | resource |
-| [google_compute_firewall.projet-de-specialite-firewall-public-private-interconnect](https://registry.terraform.io/providers/hashicorp/google/4.56.0/docs/resources/compute_firewall) | resource |
-| [google_project_iam_binding.projet_de_specialite_iam_cloud_sql](https://registry.terraform.io/providers/hashicorp/google/4.56.0/docs/resources/project_iam_binding) | resource |
-| [google_storage_bucket_iam_policy.projet_de_specialite_posts_bucket_iam_policy](https://registry.terraform.io/providers/hashicorp/google/4.56.0/docs/resources/storage_bucket_iam_policy) | resource |
-| [google_storage_bucket_iam_policy.projet_de_specialite_profile_bucket_iam_policy](https://registry.terraform.io/providers/hashicorp/google/4.56.0/docs/resources/storage_bucket_iam_policy) | resource |
-| [google_iam_policy.projet_de_specialite_posts_bucket_iam](https://registry.terraform.io/providers/hashicorp/google/4.56.0/docs/data-sources/iam_policy) | data source |
-| [google_iam_policy.projet_de_specialite_profile_bucket_iam](https://registry.terraform.io/providers/hashicorp/google/4.56.0/docs/data-sources/iam_policy) | data source |
+| [google_compute_firewall.projet-de-specialite-cloud-sql](https://registry.terraform.io/providers/hashicorp/google/4.61.0/docs/resources/compute_firewall) | resource |
+| [google_compute_firewall.projet-de-specialite-firewall-deny-all](https://registry.terraform.io/providers/hashicorp/google/4.61.0/docs/resources/compute_firewall) | resource |
+| [google_compute_firewall.projet-de-specialite-firewall-private-interconnect](https://registry.terraform.io/providers/hashicorp/google/4.61.0/docs/resources/compute_firewall) | resource |
+| [google_compute_firewall.projet-de-specialite-firewall-public-allow-ssh](https://registry.terraform.io/providers/hashicorp/google/4.61.0/docs/resources/compute_firewall) | resource |
+| [google_compute_firewall.projet-de-specialite-firewall-public-app-allow-http](https://registry.terraform.io/providers/hashicorp/google/4.61.0/docs/resources/compute_firewall) | resource |
+| [google_compute_firewall.projet-de-specialite-firewall-public-private-interconnect](https://registry.terraform.io/providers/hashicorp/google/4.61.0/docs/resources/compute_firewall) | resource |
+| [google_project_iam_binding.projet_de_specialite_cloud_ops_agent](https://registry.terraform.io/providers/hashicorp/google/4.61.0/docs/resources/project_iam_binding) | resource |
+| [google_project_iam_binding.projet_de_specialite_iam_cloud_sql](https://registry.terraform.io/providers/hashicorp/google/4.61.0/docs/resources/project_iam_binding) | resource |
+| [google_storage_bucket_iam_policy.projet_de_specialite_posts_bucket_iam_policy](https://registry.terraform.io/providers/hashicorp/google/4.61.0/docs/resources/storage_bucket_iam_policy) | resource |
+| [google_storage_bucket_iam_policy.projet_de_specialite_profile_bucket_iam_policy](https://registry.terraform.io/providers/hashicorp/google/4.61.0/docs/resources/storage_bucket_iam_policy) | resource |
+| [google_iam_policy.projet_de_specialite_posts_bucket_iam](https://registry.terraform.io/providers/hashicorp/google/4.61.0/docs/data-sources/iam_policy) | data source |
+| [google_iam_policy.projet_de_specialite_profile_bucket_iam](https://registry.terraform.io/providers/hashicorp/google/4.61.0/docs/data-sources/iam_policy) | data source |
 
 ## Inputs
 

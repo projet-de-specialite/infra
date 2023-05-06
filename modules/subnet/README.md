@@ -26,6 +26,7 @@ No modules.
 | <a name="input_subnet_ip_range"></a> [subnet\_ip\_range](#input\_subnet\_ip\_range) | IP CIDR range of the subnet | `string` | n/a | yes |
 | <a name="input_subnet_name"></a> [subnet\_name](#input\_subnet\_name) | Name of the subnet | `string` | n/a | yes |
 | <a name="input_subnet_network_name"></a> [subnet\_network\_name](#input\_subnet\_network\_name) | Name of the network you would like to create a subnet | `string` | n/a | yes |
+| <a name="input_subnet_private_ip_google_access"></a> [subnet\_private\_ip\_google\_access](#input\_subnet\_private\_ip\_google\_access) | Enable Private IP Google access | `bool` | `false` | no |
 
 ## Outputs
 
