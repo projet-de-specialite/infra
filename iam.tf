@@ -17,7 +17,7 @@ data "google_iam_policy" "projet_de_specialite_profile_bucket_iam" {
 }
 
 resource "google_project_iam_binding" "projet_de_specialite_iam_cloud_sql" {
-  project = "projet-de-specialite-377322"
+  project = google_project.project.project_id
   for_each = toset([
     "roles/cloudsql.instanceUser",
     "roles/cloudsql.client",
@@ -36,7 +36,7 @@ resource "google_project_iam_binding" "projet_de_specialite_iam_cloud_sql" {
 }
 
 resource "google_project_iam_binding" "projet_de_specialite_cloud_ops_agent" {
-  project = "projet-de-specialite-377322"
+  project = google_project.project.project_id
   for_each = toset([
     "roles/monitoring.metricWriter",
     "roles/logging.logWriter"
