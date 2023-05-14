@@ -125,20 +125,20 @@ module "projet_de_specialite_instance_cloud_sql_postgres" {
   ]
 }
 
-module "projet_de_specialite_instance_cloud_sql_mysql" {
-  source                                       = "./modules/cloud-sql-instance"
-  cloud_sql_instance_name                      = "projet-de-specialite-mysql"
-  cloud_sql_instance_version                   = "MYSQL_8_0"
-  cloud_sql_instance_tier                      = "db-f1-micro"
-  cloud_sql_instance_deletion_protection       = false
-  cloud_sql_instance_enable_private            = true
-  cloud_sql_instance_enable_iam_authentication = true
-  cloud_sql_instance_vpc                       = module.projet_de_specialite_vpc.vpc_id
-  depends_on = [
-    module.projet_de_specialite_vpc,
-    module.projet_de_specialite_cloud_sql_connect_to_vpc
-  ]
-}
+# module "projet_de_specialite_instance_cloud_sql_mysql" {
+#   source                                       = "./modules/cloud-sql-instance"
+#   cloud_sql_instance_name                      = "projet-de-specialite-mysql"
+#   cloud_sql_instance_version                   = "MYSQL_8_0"
+#   cloud_sql_instance_tier                      = "db-f1-micro"
+#   cloud_sql_instance_deletion_protection       = false
+#   cloud_sql_instance_enable_private            = true
+#   cloud_sql_instance_enable_iam_authentication = true
+#   cloud_sql_instance_vpc                       = module.projet_de_specialite_vpc.vpc_id
+#   depends_on = [
+#     module.projet_de_specialite_vpc,
+#     module.projet_de_specialite_cloud_sql_connect_to_vpc
+#   ]
+# }
 
 # Chorouq
 
@@ -444,25 +444,34 @@ module "projet_de_specialite_service_account_mp" {
   service_account_display_name = "Service account for mp"
 }
 
-module "projet_de_specialite_db_mp" {
-  source                      = "./modules/cloud-sql-database"
-  cloud_sql_database_name     = "projet-de-specialite-db-mp"
-  cloud_sql_database_instance = module.projet_de_specialite_instance_cloud_sql_mysql.db_instance_name
-  depends_on = [
-    module.projet_de_specialite_instance_cloud_sql_mysql
-  ]
+module "projet_de_specialite_firestore_database_mp" {
+  source                                               = "./modules/firestore-database"
+  cloud_firestore_database_name                        = "firestore-database-mp"
+  cloud_firestore_database_location_id                 = "eur3"
+  cloud_firestore_database_type                        = "FIRESTORE_NATIVE"
+  cloud_firestore_database_concurrency_mode            = "OPTIMISTIC"
+  cloud_firestore_database_app_engine_integration_mode = "DISABLED"
 }
 
-module "projet_de_specialite_db_user_mp" {
-  source                  = "./modules/cloud-sql-user"
-  cloud_sql_user_username = module.projet_de_specialite_service_account_mp.service_account_email
-  cloud_sql_user_instance = module.projet_de_specialite_instance_cloud_sql_mysql.db_instance_name
-  cloud_sql_user_type     = "CLOUD_IAM_SERVICE_ACCOUNT"
-  depends_on = [
-    module.projet_de_specialite_service_account_mp,
-    module.projet_de_specialite_instance_cloud_sql_mysql
-  ]
-}
+# module "projet_de_specialite_db_mp" {
+#   source                      = "./modules/cloud-sql-database"
+#   cloud_sql_database_name     = "projet-de-specialite-db-mp"
+#   cloud_sql_database_instance = module.projet_de_specialite_instance_cloud_sql_mysql.db_instance_name
+#   depends_on = [
+#     module.projet_de_specialite_instance_cloud_sql_mysql
+#   ]
+# }
+
+# module "projet_de_specialite_db_user_mp" {
+#   source                  = "./modules/cloud-sql-user"
+#   cloud_sql_user_username = module.projet_de_specialite_service_account_mp.service_account_email
+#   cloud_sql_user_instance = module.projet_de_specialite_instance_cloud_sql_mysql.db_instance_name
+#   cloud_sql_user_type     = "CLOUD_IAM_SERVICE_ACCOUNT"
+#   depends_on = [
+#     module.projet_de_specialite_service_account_mp,
+#     module.projet_de_specialite_instance_cloud_sql_mysql
+#   ]
+# }
 
 # Gaëtan
 
