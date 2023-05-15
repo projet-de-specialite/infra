@@ -30,7 +30,6 @@ resource "google_project_iam_binding" "projet_de_specialite_iam_cloud_sql" {
     "serviceAccount:${module.projet_de_specialite_service_account_profile.service_account_email}",
     "serviceAccount:${module.projet_de_specialite_service_account_comments.service_account_email}",
     "serviceAccount:${module.projet_de_specialite_service_account_subs.service_account_email}",
-    "serviceAccount:${module.projet_de_specialite_service_account_mp.service_account_email}",
   "user:gaetan.le.heurt.finot@etud.u-picardie.fr"]
 
 }
@@ -48,6 +47,18 @@ resource "google_project_iam_binding" "projet_de_specialite_cloud_ops_agent" {
     "serviceAccount:${module.projet_de_specialite_service_account_profile.service_account_email}",
     "serviceAccount:${module.projet_de_specialite_service_account_comments.service_account_email}",
     "serviceAccount:${module.projet_de_specialite_service_account_subs.service_account_email}",
+    "serviceAccount:${module.projet_de_specialite_service_account_mp.service_account_email}",
+  "user:gaetan.le.heurt.finot@etud.u-picardie.fr"]
+
+}
+
+resource "google_project_iam_binding" "projet_de_specialite_cloud_firestore_iam" {
+  project = google_project.project.project_id
+  for_each = toset([
+    "roles/datastore.user"
+  ])
+  role = each.key
+  members = [
     "serviceAccount:${module.projet_de_specialite_service_account_mp.service_account_email}",
   "user:gaetan.le.heurt.finot@etud.u-picardie.fr"]
 
