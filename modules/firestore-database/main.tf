@@ -6,7 +6,7 @@ resource "google_project_service" "cloud_firestore_service" {
   service = "firestore.googleapis.com"
   depends_on = [
     time_sleep.wait_60_seconds
-    ]
+  ]
 }
 
 resource "google_firestore_database" "cloud_firestore_database" {
@@ -15,7 +15,7 @@ resource "google_firestore_database" "cloud_firestore_database" {
   type                        = var.cloud_firestore_database_type
   concurrency_mode            = var.cloud_firestore_database_concurrency_mode
   app_engine_integration_mode = var.cloud_firestore_database_app_engine_integration_mode
-  depends_on = [ 
+  depends_on = [
     google_project_service.cloud_firestore_service
-   ]
+  ]
 }
