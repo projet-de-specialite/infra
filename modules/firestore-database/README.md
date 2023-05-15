@@ -8,6 +8,7 @@ No requirements.
 | Name | Version |
 |------|---------|
 | <a name="provider_google"></a> [google](#provider\_google) | n/a |
+| <a name="provider_time"></a> [time](#provider\_time) | n/a |
 
 ## Modules
 
@@ -18,6 +19,8 @@ No modules.
 | Name | Type |
 |------|------|
 | [google_firestore_database.cloud_firestore_database](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/firestore_database) | resource |
+| [google_project_service.cloud_firestore_service](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/project_service) | resource |
+| [time_sleep.wait_60_seconds](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
 
 ## Inputs
 

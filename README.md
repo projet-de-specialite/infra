@@ -68,6 +68,7 @@
 | [google_project_iam_binding.projet_de_specialite_cloud_firestore_iam](https://registry.terraform.io/providers/hashicorp/google/4.64.0/docs/resources/project_iam_binding) | resource |
 | [google_project_iam_binding.projet_de_specialite_cloud_ops_agent](https://registry.terraform.io/providers/hashicorp/google/4.64.0/docs/resources/project_iam_binding) | resource |
 | [google_project_iam_binding.projet_de_specialite_iam_cloud_sql](https://registry.terraform.io/providers/hashicorp/google/4.64.0/docs/resources/project_iam_binding) | resource |
+| [google_project_service.projet_de_specialite_services](https://registry.terraform.io/providers/hashicorp/google/4.64.0/docs/resources/project_service) | resource |
 | [google_storage_bucket_iam_policy.projet_de_specialite_posts_bucket_iam_policy](https://registry.terraform.io/providers/hashicorp/google/4.64.0/docs/resources/storage_bucket_iam_policy) | resource |
 | [google_storage_bucket_iam_policy.projet_de_specialite_profile_bucket_iam_policy](https://registry.terraform.io/providers/hashicorp/google/4.64.0/docs/resources/storage_bucket_iam_policy) | resource |
 | [google_iam_policy.projet_de_specialite_posts_bucket_iam](https://registry.terraform.io/providers/hashicorp/google/4.64.0/docs/data-sources/iam_policy) | data source |
@@ -75,7 +76,9 @@
 
 ## Inputs
 
-No inputs.
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_gcp_service_list"></a> [gcp\_service\_list](#input\_gcp\_service\_list) | The list of APIs necessary for the project | `list(string)` | <pre>[<br>  "compute.googleapis.com",<br>  "sql-component.googleapis.com",<br>  "sqladmin.googleapis.com",<br>  "storage-component.googleapis.com",<br>  "firestore.googleapis.com",<br>  "datastore.googleapis.com",<br>  "monitoring.googleapis.com",<br>  "servicenetworking.googleapis.com",<br>  "dns.googleapis.com",<br>  "cloudbilling.googleapis.com",<br>  "cloudresourcemanager.googleapis.com",<br>  "serviceusage.googleapis.com"<br>]</pre> | no |
 
 ## Outputs
 
