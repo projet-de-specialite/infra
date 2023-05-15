@@ -22,19 +22,17 @@
 | <a name="module_projet_de_specialite_cloud_sql_private_ip"></a> [projet\_de\_specialite\_cloud\_sql\_private\_ip](#module\_projet\_de\_specialite\_cloud\_sql\_private\_ip) | ./modules/compute-global-address | n/a |
 | <a name="module_projet_de_specialite_db_auth"></a> [projet\_de\_specialite\_db\_auth](#module\_projet\_de\_specialite\_db\_auth) | ./modules/cloud-sql-database | n/a |
 | <a name="module_projet_de_specialite_db_comments"></a> [projet\_de\_specialite\_db\_comments](#module\_projet\_de\_specialite\_db\_comments) | ./modules/cloud-sql-database | n/a |
-| <a name="module_projet_de_specialite_db_mp"></a> [projet\_de\_specialite\_db\_mp](#module\_projet\_de\_specialite\_db\_mp) | ./modules/cloud-sql-database | n/a |
 | <a name="module_projet_de_specialite_db_posts"></a> [projet\_de\_specialite\_db\_posts](#module\_projet\_de\_specialite\_db\_posts) | ./modules/cloud-sql-database | n/a |
 | <a name="module_projet_de_specialite_db_profile"></a> [projet\_de\_specialite\_db\_profile](#module\_projet\_de\_specialite\_db\_profile) | ./modules/cloud-sql-database | n/a |
 | <a name="module_projet_de_specialite_db_subs"></a> [projet\_de\_specialite\_db\_subs](#module\_projet\_de\_specialite\_db\_subs) | ./modules/cloud-sql-database | n/a |
 | <a name="module_projet_de_specialite_db_user_auth"></a> [projet\_de\_specialite\_db\_user\_auth](#module\_projet\_de\_specialite\_db\_user\_auth) | ./modules/cloud-sql-user | n/a |
 | <a name="module_projet_de_specialite_db_user_comments"></a> [projet\_de\_specialite\_db\_user\_comments](#module\_projet\_de\_specialite\_db\_user\_comments) | ./modules/cloud-sql-user | n/a |
-| <a name="module_projet_de_specialite_db_user_mp"></a> [projet\_de\_specialite\_db\_user\_mp](#module\_projet\_de\_specialite\_db\_user\_mp) | ./modules/cloud-sql-user | n/a |
 | <a name="module_projet_de_specialite_db_user_posts"></a> [projet\_de\_specialite\_db\_user\_posts](#module\_projet\_de\_specialite\_db\_user\_posts) | ./modules/cloud-sql-user | n/a |
 | <a name="module_projet_de_specialite_db_user_profile"></a> [projet\_de\_specialite\_db\_user\_profile](#module\_projet\_de\_specialite\_db\_user\_profile) | ./modules/cloud-sql-user | n/a |
 | <a name="module_projet_de_specialite_db_user_subs"></a> [projet\_de\_specialite\_db\_user\_subs](#module\_projet\_de\_specialite\_db\_user\_subs) | ./modules/cloud-sql-user | n/a |
 | <a name="module_projet_de_specialite_dns_record_compute_instance_public_app"></a> [projet\_de\_specialite\_dns\_record\_compute\_instance\_public\_app](#module\_projet\_de\_specialite\_dns\_record\_compute\_instance\_public\_app) | ./modules/dns-record | n/a |
 | <a name="module_projet_de_specialite_dns_zone"></a> [projet\_de\_specialite\_dns\_zone](#module\_projet\_de\_specialite\_dns\_zone) | ./modules/dns-zone | n/a |
-| <a name="module_projet_de_specialite_instance_cloud_sql_mysql"></a> [projet\_de\_specialite\_instance\_cloud\_sql\_mysql](#module\_projet\_de\_specialite\_instance\_cloud\_sql\_mysql) | ./modules/cloud-sql-instance | n/a |
+| <a name="module_projet_de_specialite_firestore_database_mp"></a> [projet\_de\_specialite\_firestore\_database\_mp](#module\_projet\_de\_specialite\_firestore\_database\_mp) | ./modules/firestore-database | n/a |
 | <a name="module_projet_de_specialite_instance_cloud_sql_postgres"></a> [projet\_de\_specialite\_instance\_cloud\_sql\_postgres](#module\_projet\_de\_specialite\_instance\_cloud\_sql\_postgres) | ./modules/cloud-sql-instance | n/a |
 | <a name="module_projet_de_specialite_instance_private_auth"></a> [projet\_de\_specialite\_instance\_private\_auth](#module\_projet\_de\_specialite\_instance\_private\_auth) | ./modules/compute | n/a |
 | <a name="module_projet_de_specialite_instance_private_comments"></a> [projet\_de\_specialite\_instance\_private\_comments](#module\_projet\_de\_specialite\_instance\_private\_comments) | ./modules/compute | n/a |
@@ -66,6 +64,8 @@
 | [google_compute_firewall.projet-de-specialite-firewall-public-allow-ssh](https://registry.terraform.io/providers/hashicorp/google/4.63.1/docs/resources/compute_firewall) | resource |
 | [google_compute_firewall.projet-de-specialite-firewall-public-app-allow-http](https://registry.terraform.io/providers/hashicorp/google/4.63.1/docs/resources/compute_firewall) | resource |
 | [google_compute_firewall.projet-de-specialite-firewall-public-private-interconnect](https://registry.terraform.io/providers/hashicorp/google/4.63.1/docs/resources/compute_firewall) | resource |
+| [google_project.project](https://registry.terraform.io/providers/hashicorp/google/4.63.1/docs/resources/project) | resource |
+| [google_project_iam_binding.projet_de_specialite_cloud_firestore_iam](https://registry.terraform.io/providers/hashicorp/google/4.63.1/docs/resources/project_iam_binding) | resource |
 | [google_project_iam_binding.projet_de_specialite_cloud_ops_agent](https://registry.terraform.io/providers/hashicorp/google/4.63.1/docs/resources/project_iam_binding) | resource |
 | [google_project_iam_binding.projet_de_specialite_iam_cloud_sql](https://registry.terraform.io/providers/hashicorp/google/4.63.1/docs/resources/project_iam_binding) | resource |
 | [google_storage_bucket_iam_policy.projet_de_specialite_posts_bucket_iam_policy](https://registry.terraform.io/providers/hashicorp/google/4.63.1/docs/resources/storage_bucket_iam_policy) | resource |
