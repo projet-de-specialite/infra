@@ -8,7 +8,7 @@ terraform {
 }
 
 provider "google" {
-  project = "projet-de-specialite-377322"
+  project = "projet-de-specialite-master1"
   region  = "europe-west9"
   zone    = "europe-west9-a"
 }
