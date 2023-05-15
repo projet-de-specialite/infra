@@ -1,6 +1,10 @@
 module "projet_de_specialite_vpc" {
   source   = "./modules/vpc"
   vpc_name = "projet-de-specialite-vpc"
+  depends_on = [
+    google_project.project,
+    google_project_service.projet_de_specialite_services
+  ]
 }
 
 module "projet_de_specialite_subnet_public" {
@@ -9,7 +13,9 @@ module "projet_de_specialite_subnet_public" {
   subnet_ip_range     = "10.1.0.0/16"
   subnet_network_name = module.projet_de_specialite_vpc.vpc_name
   depends_on = [
-    module.projet_de_specialite_vpc
+    module.projet_de_specialite_vpc,
+    google_project.project,
+    google_project_service.projet_de_specialite_services
   ]
 }
 
@@ -20,7 +26,9 @@ module "projet_de_specialite_subnet_private" {
   subnet_private_ip_google_access = true
   subnet_network_name             = module.projet_de_specialite_vpc.vpc_name
   depends_on = [
-    module.projet_de_specialite_vpc
+    module.projet_de_specialite_vpc,
+    google_project.project,
+    google_project_service.projet_de_specialite_services
   ]
 }
 
@@ -31,7 +39,9 @@ module "projet_de_specialite_router" {
   vpc_id        = module.projet_de_specialite_vpc.vpc_id
   depends_on = [
     module.projet_de_specialite_vpc,
-    module.projet_de_specialite_subnet_public
+    module.projet_de_specialite_subnet_public,
+    google_project.project,
+    google_project_service.projet_de_specialite_services
   ]
 }
 
@@ -47,7 +57,9 @@ module "projet_de_specialite_nat" {
   depends_on = [
     module.projet_de_specialite_vpc,
     module.projet_de_specialite_subnet_private,
-    module.projet_de_specialite_router
+    module.projet_de_specialite_router,
+    google_project.project,
+    google_project_service.projet_de_specialite_services
   ]
 }
 
@@ -64,7 +76,9 @@ module "projet_de_specialite_instance_public_app" {
   compute_tags               = ["projet-de-specialite-compute", "projet-de-specialite-compute-public", "projet-de-specialite-compute-public-app"]
   depends_on = [
     module.projet_de_specialite_vpc,
-    module.projet_de_specialite_subnet_public
+    module.projet_de_specialite_subnet_public,
+    google_project.project,
+    google_project_service.projet_de_specialite_services
   ]
 }
 
@@ -72,6 +86,10 @@ module "projet_de_specialite_dns_zone" {
   source            = "./modules/dns-zone"
   dns_zone_name     = "projet-de-specialite-dns-zone"
   dns_zone_name_url = "apowoyo.ovh."
+  depends_on = [
+    google_project.project,
+    google_project_service.projet_de_specialite_services
+  ]
 }
 
 module "projet_de_specialite_dns_record_compute_instance_public_app" {
@@ -83,7 +101,9 @@ module "projet_de_specialite_dns_record_compute_instance_public_app" {
   dns_zone_dns_name  = module.projet_de_specialite_dns_zone.dns_zone_name_url
   depends_on = [
     module.projet_de_specialite_instance_public_app,
-    module.projet_de_specialite_dns_zone
+    module.projet_de_specialite_dns_zone,
+    google_project.project,
+    google_project_service.projet_de_specialite_services
   ]
 }
 
@@ -96,7 +116,9 @@ module "projet_de_specialite_cloud_sql_private_ip" {
   compute_global_address_address       = "10.3.0.0"
   compute_global_address_network       = module.projet_de_specialite_vpc.vpc_name
   depends_on = [
-    module.projet_de_specialite_vpc
+    module.projet_de_specialite_vpc,
+    google_project.project,
+    google_project_service.projet_de_specialite_services
   ]
 }
 
@@ -106,7 +128,9 @@ module "projet_de_specialite_cloud_sql_connect_to_vpc" {
   service_networking_connection_reserved_peering_ranges = [module.projet_de_specialite_cloud_sql_private_ip.compute_global_address_name]
   depends_on = [
     module.projet_de_specialite_vpc,
-    module.projet_de_specialite_cloud_sql_private_ip
+    module.projet_de_specialite_cloud_sql_private_ip,
+    google_project.project,
+    google_project_service.projet_de_specialite_services
   ]
 }
 
@@ -121,7 +145,9 @@ module "projet_de_specialite_instance_cloud_sql_postgres" {
   cloud_sql_instance_vpc                       = module.projet_de_specialite_vpc.vpc_id
   depends_on = [
     module.projet_de_specialite_vpc,
-    module.projet_de_specialite_cloud_sql_connect_to_vpc
+    module.projet_de_specialite_cloud_sql_connect_to_vpc,
+    google_project.project,
+    google_project_service.projet_de_specialite_services
   ]
 }
 
@@ -136,7 +162,9 @@ module "projet_de_specialite_instance_cloud_sql_postgres" {
 #   cloud_sql_instance_vpc                       = module.projet_de_specialite_vpc.vpc_id
 #   depends_on = [
 #     module.projet_de_specialite_vpc,
-#     module.projet_de_specialite_cloud_sql_connect_to_vpc
+#     module.projet_de_specialite_cloud_sql_connect_to_vpc,
+#     google_project.project,
+#     google_project_service.projet_de_specialite_services
 #   ]
 # }
 
@@ -158,7 +186,9 @@ module "projet_de_specialite_instance_private_auth" {
   depends_on = [
     module.projet_de_specialite_vpc,
     module.projet_de_specialite_subnet_private,
-    module.projet_de_specialite_service_account_posts
+    module.projet_de_specialite_service_account_posts,
+    google_project.project,
+    google_project_service.projet_de_specialite_services
   ]
 }
 
@@ -166,6 +196,10 @@ module "projet_de_specialite_service_account_auth" {
   source                       = "./modules/service-account"
   service_account_account_id   = "service-account-auth"
   service_account_display_name = "Service account for Auth"
+  depends_on = [
+    google_project.project,
+    google_project_service.projet_de_specialite_services
+  ]
 }
 
 module "projet_de_specialite_db_auth" {
@@ -175,7 +209,9 @@ module "projet_de_specialite_db_auth" {
   cloud_sql_database_charset   = "UTF8"
   cloud_sql_database_collation = "en_US.UTF8"
   depends_on = [
-    module.projet_de_specialite_instance_cloud_sql_postgres
+    module.projet_de_specialite_instance_cloud_sql_postgres,
+    google_project.project,
+    google_project_service.projet_de_specialite_services
   ]
 }
 
@@ -186,7 +222,9 @@ module "projet_de_specialite_db_user_auth" {
   cloud_sql_user_type     = "CLOUD_IAM_SERVICE_ACCOUNT"
   depends_on = [
     module.projet_de_specialite_service_account_auth,
-    module.projet_de_specialite_instance_cloud_sql_postgres
+    module.projet_de_specialite_instance_cloud_sql_postgres,
+    google_project.project,
+    google_project_service.projet_de_specialite_services
   ]
 }
 
@@ -208,7 +246,9 @@ module "projet_de_specialite_instance_private_posts" {
   depends_on = [
     module.projet_de_specialite_vpc,
     module.projet_de_specialite_subnet_private,
-    module.projet_de_specialite_service_account_posts
+    module.projet_de_specialite_service_account_posts,
+    google_project.project,
+    google_project_service.projet_de_specialite_services
   ]
 }
 
@@ -216,18 +256,25 @@ module "projet_de_specialite_service_account_posts" {
   source                       = "./modules/service-account"
   service_account_account_id   = "service-account-posts"
   service_account_display_name = "Service account for Posts"
+  depends_on = [
+
+    google_project.project,
+    google_project_service.projet_de_specialite_services
+  ]
 }
 
 module "projet_de_specialite_bucket_posts" {
   source                             = "./modules/bucket"
-  bucket_name                        = "projet-de-specialite-bucket-posts"
+  bucket_name                        = "projet-de-specialite-storage-posts"
   bucket_location                    = "EU"
   bucket_force_destroy               = "true"
   bucket_storage_class               = "STANDARD"
   bucket_uniform_bucket_level_access = "false"
   bucket_public_access_prevention    = "inherited"
   depends_on = [
-    module.projet_de_specialite_service_account_posts
+    module.projet_de_specialite_service_account_posts,
+    google_project.project,
+    google_project_service.projet_de_specialite_services
   ]
 }
 
@@ -238,7 +285,9 @@ module "projet_de_specialite_db_posts" {
   cloud_sql_database_charset   = "UTF8"
   cloud_sql_database_collation = "en_US.UTF8"
   depends_on = [
-    module.projet_de_specialite_instance_cloud_sql_postgres
+    module.projet_de_specialite_instance_cloud_sql_postgres,
+    google_project.project,
+    google_project_service.projet_de_specialite_services
   ]
 }
 
@@ -249,7 +298,9 @@ module "projet_de_specialite_db_user_posts" {
   cloud_sql_user_type     = "CLOUD_IAM_SERVICE_ACCOUNT"
   depends_on = [
     module.projet_de_specialite_service_account_posts,
-    module.projet_de_specialite_instance_cloud_sql_postgres
+    module.projet_de_specialite_instance_cloud_sql_postgres,
+    google_project.project,
+    google_project_service.projet_de_specialite_services
   ]
 }
 
@@ -271,7 +322,9 @@ module "projet_de_specialite_instance_private_profile" {
   depends_on = [
     module.projet_de_specialite_vpc,
     module.projet_de_specialite_subnet_private,
-    module.projet_de_specialite_service_account_profile
+    module.projet_de_specialite_service_account_profile,
+    google_project.project,
+    google_project_service.projet_de_specialite_services
   ]
 }
 
@@ -279,18 +332,24 @@ module "projet_de_specialite_service_account_profile" {
   source                       = "./modules/service-account"
   service_account_account_id   = "service-account-profile"
   service_account_display_name = "Service account for Profile"
+  depends_on = [
+    google_project.project,
+    google_project_service.projet_de_specialite_services
+  ]
 }
 
 module "projet_de_specialite_bucket_profile" {
   source                             = "./modules/bucket"
-  bucket_name                        = "projet-de-specialite-bucket-profile"
+  bucket_name                        = "projet-de-specialite-storage-profile"
   bucket_location                    = "EU"
   bucket_force_destroy               = "true"
   bucket_storage_class               = "STANDARD"
   bucket_uniform_bucket_level_access = "false"
   bucket_public_access_prevention    = "inherited"
   depends_on = [
-    module.projet_de_specialite_service_account_profile
+    module.projet_de_specialite_service_account_profile,
+    google_project.project,
+    google_project_service.projet_de_specialite_services
   ]
 }
 
@@ -301,7 +360,9 @@ module "projet_de_specialite_db_profile" {
   cloud_sql_database_charset   = "UTF8"
   cloud_sql_database_collation = "en_US.UTF8"
   depends_on = [
-    module.projet_de_specialite_instance_cloud_sql_postgres
+    module.projet_de_specialite_instance_cloud_sql_postgres,
+    google_project.project,
+    google_project_service.projet_de_specialite_services
   ]
 }
 
@@ -312,7 +373,9 @@ module "projet_de_specialite_db_user_profile" {
   cloud_sql_user_type     = "CLOUD_IAM_SERVICE_ACCOUNT"
   depends_on = [
     module.projet_de_specialite_service_account_profile,
-    module.projet_de_specialite_instance_cloud_sql_postgres
+    module.projet_de_specialite_instance_cloud_sql_postgres,
+    google_project.project,
+    google_project_service.projet_de_specialite_services
   ]
 }
 
@@ -334,7 +397,9 @@ module "projet_de_specialite_instance_private_comments" {
   depends_on = [
     module.projet_de_specialite_vpc,
     module.projet_de_specialite_subnet_private,
-    module.projet_de_specialite_service_account_comments
+    module.projet_de_specialite_service_account_comments,
+    google_project.project,
+    google_project_service.projet_de_specialite_services
   ]
 }
 
@@ -342,6 +407,9 @@ module "projet_de_specialite_service_account_comments" {
   source                       = "./modules/service-account"
   service_account_account_id   = "sa-comments"
   service_account_display_name = "Service account for comments"
+  depends_on = [
+    google_project.project
+  ]
 }
 
 module "projet_de_specialite_db_comments" {
@@ -351,7 +419,9 @@ module "projet_de_specialite_db_comments" {
   cloud_sql_database_charset   = "UTF8"
   cloud_sql_database_collation = "en_US.UTF8"
   depends_on = [
-    module.projet_de_specialite_instance_cloud_sql_postgres
+    module.projet_de_specialite_instance_cloud_sql_postgres,
+    google_project.project,
+    google_project_service.projet_de_specialite_services
   ]
 }
 
@@ -362,7 +432,9 @@ module "projet_de_specialite_db_user_comments" {
   cloud_sql_user_type     = "CLOUD_IAM_SERVICE_ACCOUNT"
   depends_on = [
     module.projet_de_specialite_service_account_comments,
-    module.projet_de_specialite_instance_cloud_sql_postgres
+    module.projet_de_specialite_instance_cloud_sql_postgres,
+    google_project.project,
+    google_project_service.projet_de_specialite_services
   ]
 }
 
@@ -384,7 +456,9 @@ module "projet_de_specialite_instance_private_subs" {
   depends_on = [
     module.projet_de_specialite_vpc,
     module.projet_de_specialite_subnet_private,
-    module.projet_de_specialite_service_account_subs
+    module.projet_de_specialite_service_account_subs,
+    google_project.project,
+    google_project_service.projet_de_specialite_services
   ]
 }
 
@@ -392,6 +466,10 @@ module "projet_de_specialite_service_account_subs" {
   source                       = "./modules/service-account"
   service_account_account_id   = "service-account-subs"
   service_account_display_name = "Service account for subs"
+  depends_on = [
+    google_project.project,
+    google_project_service.projet_de_specialite_services
+  ]
 }
 
 module "projet_de_specialite_db_subs" {
@@ -401,7 +479,9 @@ module "projet_de_specialite_db_subs" {
   cloud_sql_database_charset   = "UTF8"
   cloud_sql_database_collation = "en_US.UTF8"
   depends_on = [
-    module.projet_de_specialite_instance_cloud_sql_postgres
+    module.projet_de_specialite_instance_cloud_sql_postgres,
+    google_project.project,
+    google_project_service.projet_de_specialite_services
   ]
 }
 
@@ -412,7 +492,9 @@ module "projet_de_specialite_db_user_subs" {
   cloud_sql_user_type     = "CLOUD_IAM_SERVICE_ACCOUNT"
   depends_on = [
     module.projet_de_specialite_service_account_subs,
-    module.projet_de_specialite_instance_cloud_sql_postgres
+    module.projet_de_specialite_instance_cloud_sql_postgres,
+    google_project.project,
+    google_project_service.projet_de_specialite_services
   ]
 }
 
@@ -434,7 +516,9 @@ module "projet_de_specialite_instance_private_mp" {
   depends_on = [
     module.projet_de_specialite_vpc,
     module.projet_de_specialite_subnet_private,
-    module.projet_de_specialite_service_account_mp
+    module.projet_de_specialite_service_account_mp,
+    google_project.project,
+    google_project_service.projet_de_specialite_services
   ]
 }
 
@@ -442,15 +526,23 @@ module "projet_de_specialite_service_account_mp" {
   source                       = "./modules/service-account"
   service_account_account_id   = "service-account-mp"
   service_account_display_name = "Service account for mp"
+  depends_on = [
+    google_project.project,
+    google_project_service.projet_de_specialite_services
+  ]
 }
 
 module "projet_de_specialite_firestore_database_mp" {
-  source                                               = "./modules/firestore-database"
-  cloud_firestore_database_name                        = "firestore-database-mp"
-  cloud_firestore_database_location_id                 = "eur3"
-  cloud_firestore_database_type                        = "FIRESTORE_NATIVE"
-  cloud_firestore_database_concurrency_mode            = "OPTIMISTIC"
+  source                               = "./modules/firestore-database"
+  cloud_firestore_database_name        = "(default)"
+  cloud_firestore_database_location_id = "eur3"
+  cloud_firestore_database_type        = "FIRESTORE_NATIVE"
+  cloud_firestore_database_concurrency_mode = "OPTIMISTIC"
   cloud_firestore_database_app_engine_integration_mode = "DISABLED"
+  depends_on = [
+    google_project.project,
+    google_project_service.projet_de_specialite_services
+  ]
 }
 
 # module "projet_de_specialite_db_mp" {
@@ -458,7 +550,9 @@ module "projet_de_specialite_firestore_database_mp" {
 #   cloud_sql_database_name     = "projet-de-specialite-db-mp"
 #   cloud_sql_database_instance = module.projet_de_specialite_instance_cloud_sql_mysql.db_instance_name
 #   depends_on = [
-#     module.projet_de_specialite_instance_cloud_sql_mysql
+#     module.projet_de_specialite_instance_cloud_sql_mysql,
+#     google_project.project,
+#     google_project_service.projet_de_specialite_services
 #   ]
 # }
 
@@ -469,7 +563,9 @@ module "projet_de_specialite_firestore_database_mp" {
 #   cloud_sql_user_type     = "CLOUD_IAM_SERVICE_ACCOUNT"
 #   depends_on = [
 #     module.projet_de_specialite_service_account_mp,
-#     module.projet_de_specialite_instance_cloud_sql_mysql
+#     module.projet_de_specialite_instance_cloud_sql_mysql,
+#     google_project.project,
+#     google_project_service.projet_de_specialite_services
 #   ]
 # }
 
@@ -488,6 +584,8 @@ module "projet_de_specialite_instance_private_feed" {
   compute_tags               = ["projet-de-specialite-compute", "projet-de-specialite-compute-private", "projet-de-specialite-compute-private-feed"]
   depends_on = [
     module.projet_de_specialite_vpc,
-    module.projet_de_specialite_subnet_private
+    module.projet_de_specialite_subnet_private,
+    google_project.project,
+    google_project_service.projet_de_specialite_services
   ]
 }
