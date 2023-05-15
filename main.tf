@@ -533,11 +533,11 @@ module "projet_de_specialite_service_account_mp" {
 }
 
 module "projet_de_specialite_firestore_database_mp" {
-  source                               = "./modules/firestore-database"
-  cloud_firestore_database_name        = "(default)"
-  cloud_firestore_database_location_id = "eur3"
-  cloud_firestore_database_type        = "FIRESTORE_NATIVE"
-  cloud_firestore_database_concurrency_mode = "OPTIMISTIC"
+  source                                               = "./modules/firestore-database"
+  cloud_firestore_database_name                        = "(default)"
+  cloud_firestore_database_location_id                 = "eur3"
+  cloud_firestore_database_type                        = "FIRESTORE_NATIVE"
+  cloud_firestore_database_concurrency_mode            = "OPTIMISTIC"
   cloud_firestore_database_app_engine_integration_mode = "DISABLED"
   depends_on = [
     google_project.project,
