@@ -73,6 +73,7 @@ module "projet_de_specialite_instance_public_app" {
   subnet_name                = module.projet_de_specialite_subnet_public.subnet_name
   compute_private_ip         = "10.1.0.2"
   compute_enable_external_ip = true
+  compute_service_account_scopes = ["logging-write", "monitoring-write"]
   compute_tags               = ["projet-de-specialite-compute", "projet-de-specialite-compute-public", "projet-de-specialite-compute-public-app"]
   depends_on = [
     module.projet_de_specialite_vpc,
@@ -151,22 +152,22 @@ module "projet_de_specialite_instance_cloud_sql_postgres" {
   ]
 }
 
-# module "projet_de_specialite_instance_cloud_sql_mysql" {
-#   source                                       = "./modules/cloud-sql-instance"
-#   cloud_sql_instance_name                      = "projet-de-specialite-mysql"
-#   cloud_sql_instance_version                   = "MYSQL_8_0"
-#   cloud_sql_instance_tier                      = "db-f1-micro"
-#   cloud_sql_instance_deletion_protection       = false
-#   cloud_sql_instance_enable_private            = true
-#   cloud_sql_instance_enable_iam_authentication = true
-#   cloud_sql_instance_vpc                       = module.projet_de_specialite_vpc.vpc_id
-#   depends_on = [
-#     module.projet_de_specialite_vpc,
-#     module.projet_de_specialite_cloud_sql_connect_to_vpc,
-#     google_project.project,
-#     google_project_service.projet_de_specialite_services
-#   ]
-# }
+module "projet_de_specialite_instance_cloud_sql_mysql" {
+  source                                       = "./modules/cloud-sql-instance"
+  cloud_sql_instance_name                      = "projet-de-specialite-mysql"
+  cloud_sql_instance_version                   = "MYSQL_8_0"
+  cloud_sql_instance_tier                      = "db-f1-micro"
+  cloud_sql_instance_deletion_protection       = false
+  cloud_sql_instance_enable_private            = true
+  cloud_sql_instance_enable_iam_authentication = true
+  cloud_sql_instance_vpc                       = module.projet_de_specialite_vpc.vpc_id
+  depends_on = [
+    module.projet_de_specialite_vpc,
+    module.projet_de_specialite_cloud_sql_connect_to_vpc,
+    google_project.project,
+    google_project_service.projet_de_specialite_services
+  ]
+}
 
 # Chorouq
 
@@ -181,7 +182,7 @@ module "projet_de_specialite_instance_private_auth" {
   compute_private_ip             = "10.2.0.2"
   compute_enable_external_ip     = false
   compute_service_account_email  = module.projet_de_specialite_service_account_auth.service_account_email
-  compute_service_account_scopes = ["storage-full", "sql-admin", "cloud-platform"]
+  compute_service_account_scopes = ["storage-full", "sql-admin", "logging-write", "monitoring-write"]
   compute_tags                   = ["projet-de-specialite-compute", "projet-de-specialite-compute-private", "projet-de-specialite-compute-private-auth"]
   depends_on = [
     module.projet_de_specialite_vpc,
@@ -205,11 +206,9 @@ module "projet_de_specialite_service_account_auth" {
 module "projet_de_specialite_db_auth" {
   source                       = "./modules/cloud-sql-database"
   cloud_sql_database_name      = "projet-de-specialite-db-auth"
-  cloud_sql_database_instance  = module.projet_de_specialite_instance_cloud_sql_postgres.db_instance_name
-  cloud_sql_database_charset   = "UTF8"
-  cloud_sql_database_collation = "en_US.UTF8"
+  cloud_sql_database_instance  = module.projet_de_specialite_instance_cloud_sql_mysql.db_instance_name
   depends_on = [
-    module.projet_de_specialite_instance_cloud_sql_postgres,
+    module.projet_de_specialite_instance_cloud_sql_mysql,
     google_project.project,
     google_project_service.projet_de_specialite_services
   ]
@@ -217,12 +216,12 @@ module "projet_de_specialite_db_auth" {
 
 module "projet_de_specialite_db_user_auth" {
   source                  = "./modules/cloud-sql-user"
-  cloud_sql_user_username = trimsuffix(module.projet_de_specialite_service_account_auth.service_account_email, ".gserviceaccount.com")
-  cloud_sql_user_instance = module.projet_de_specialite_instance_cloud_sql_postgres.db_instance_name
+  cloud_sql_user_username = module.projet_de_specialite_service_account_auth.service_account_email
+  cloud_sql_user_instance = module.projet_de_specialite_instance_cloud_sql_mysql.db_instance_name
   cloud_sql_user_type     = "CLOUD_IAM_SERVICE_ACCOUNT"
   depends_on = [
     module.projet_de_specialite_service_account_auth,
-    module.projet_de_specialite_instance_cloud_sql_postgres,
+    module.projet_de_specialite_instance_cloud_sql_mysql,
     google_project.project,
     google_project_service.projet_de_specialite_services
   ]
@@ -241,7 +240,7 @@ module "projet_de_specialite_instance_private_posts" {
   compute_private_ip             = "10.2.0.3"
   compute_enable_external_ip     = false
   compute_service_account_email  = module.projet_de_specialite_service_account_posts.service_account_email
-  compute_service_account_scopes = ["storage-full", "sql-admin", "cloud-platform"]
+  compute_service_account_scopes = ["storage-full", "sql-admin", "logging-write", "monitoring-write"]
   compute_tags                   = ["projet-de-specialite-compute", "projet-de-specialite-compute-private", "projet-de-specialite-compute-private-posts"]
   depends_on = [
     module.projet_de_specialite_vpc,
@@ -317,7 +316,7 @@ module "projet_de_specialite_instance_private_profile" {
   compute_private_ip             = "10.2.0.4"
   compute_enable_external_ip     = false
   compute_service_account_email  = module.projet_de_specialite_service_account_profile.service_account_email
-  compute_service_account_scopes = ["storage-full", "sql-admin", "cloud-platform"]
+  compute_service_account_scopes = ["storage-full", "sql-admin", "logging-write", "monitoring-write"]
   compute_tags                   = ["projet-de-specialite-compute", "projet-de-specialite-compute-private", "projet-de-specialite-compute-private-profile"]
   depends_on = [
     module.projet_de_specialite_vpc,
@@ -356,9 +355,7 @@ module "projet_de_specialite_bucket_profile" {
 module "projet_de_specialite_db_profile" {
   source                       = "./modules/cloud-sql-database"
   cloud_sql_database_name      = "projet-de-specialite-db-profile"
-  cloud_sql_database_instance  = module.projet_de_specialite_instance_cloud_sql_postgres.db_instance_name
-  cloud_sql_database_charset   = "UTF8"
-  cloud_sql_database_collation = "en_US.UTF8"
+  cloud_sql_database_instance  = module.projet_de_specialite_instance_cloud_sql_mysql.db_instance_name
   depends_on = [
     module.projet_de_specialite_instance_cloud_sql_postgres,
     google_project.project,
@@ -368,12 +365,12 @@ module "projet_de_specialite_db_profile" {
 
 module "projet_de_specialite_db_user_profile" {
   source                  = "./modules/cloud-sql-user"
-  cloud_sql_user_username = trimsuffix(module.projet_de_specialite_service_account_profile.service_account_email, ".gserviceaccount.com")
-  cloud_sql_user_instance = module.projet_de_specialite_instance_cloud_sql_postgres.db_instance_name
+  cloud_sql_user_username = module.projet_de_specialite_service_account_profile.service_account_email
+  cloud_sql_user_instance = module.projet_de_specialite_instance_cloud_sql_mysql.db_instance_name
   cloud_sql_user_type     = "CLOUD_IAM_SERVICE_ACCOUNT"
   depends_on = [
     module.projet_de_specialite_service_account_profile,
-    module.projet_de_specialite_instance_cloud_sql_postgres,
+    module.projet_de_specialite_instance_cloud_sql_mysql,
     google_project.project,
     google_project_service.projet_de_specialite_services
   ]
@@ -392,7 +389,7 @@ module "projet_de_specialite_instance_private_comments" {
   compute_private_ip             = "10.2.0.5"
   compute_enable_external_ip     = false
   compute_service_account_email  = module.projet_de_specialite_service_account_comments.service_account_email
-  compute_service_account_scopes = ["storage-full", "sql-admin", "cloud-platform"]
+  compute_service_account_scopes = ["storage-full", "sql-admin", "logging-write", "monitoring-write"]
   compute_tags                   = ["projet-de-specialite-compute", "projet-de-specialite-compute-private", "projet-de-specialite-compute-private-comments"]
   depends_on = [
     module.projet_de_specialite_vpc,
@@ -451,7 +448,7 @@ module "projet_de_specialite_instance_private_subs" {
   compute_private_ip             = "10.2.0.6"
   compute_enable_external_ip     = false
   compute_service_account_email  = module.projet_de_specialite_service_account_subs.service_account_email
-  compute_service_account_scopes = ["storage-full", "sql-admin", "cloud-platform"]
+  compute_service_account_scopes = ["storage-full", "sql-admin", "logging-write", "monitoring-write"]
   compute_tags                   = ["projet-de-specialite-compute", "projet-de-specialite-compute-private", "projet-de-specialite-compute-private-subs"]
   depends_on = [
     module.projet_de_specialite_vpc,
@@ -511,7 +508,7 @@ module "projet_de_specialite_instance_private_mp" {
   compute_private_ip             = "10.2.0.7"
   compute_enable_external_ip     = false
   compute_service_account_email  = module.projet_de_specialite_service_account_mp.service_account_email
-  compute_service_account_scopes = ["storage-full", "sql-admin", "cloud-platform"]
+  compute_service_account_scopes = ["datastore", "logging-write", "monitoring-write"]
   compute_tags                   = ["projet-de-specialite-compute", "projet-de-specialite-compute-private", "projet-de-specialite-compute-private-mp"]
   depends_on = [
     module.projet_de_specialite_vpc,
@@ -571,21 +568,21 @@ module "projet_de_specialite_firestore_database_mp" {
 
 # Gaëtan
 
-module "projet_de_specialite_instance_private_feed" {
-  source                     = "./modules/compute"
-  compute_name               = "projet-de-specialite-compute-private-feed"
-  compute_type               = "e2-micro"
-  compute_os                 = "ubuntu-os-cloud/ubuntu-2204-lts"
-  compute_ssh_key            = "\ngaetanlhf:${file("ssh_keys/gaetanlhf.pub")}"
-  vpc_name                   = module.projet_de_specialite_vpc.vpc_name
-  subnet_name                = module.projet_de_specialite_subnet_private.subnet_name
-  compute_private_ip         = "10.2.0.8"
-  compute_enable_external_ip = false
-  compute_tags               = ["projet-de-specialite-compute", "projet-de-specialite-compute-private", "projet-de-specialite-compute-private-feed"]
-  depends_on = [
-    module.projet_de_specialite_vpc,
-    module.projet_de_specialite_subnet_private,
-    google_project.project,
-    google_project_service.projet_de_specialite_services
-  ]
-}
+# module "projet_de_specialite_instance_private_feed" {
+#   source                     = "./modules/compute"
+#   compute_name               = "projet-de-specialite-compute-private-feed"
+#   compute_type               = "e2-micro"
+#   compute_os                 = "ubuntu-os-cloud/ubuntu-2204-lts"
+#   compute_ssh_key            = "\ngaetanlhf:${file("ssh_keys/gaetanlhf.pub")}"
+#   vpc_name                   = module.projet_de_specialite_vpc.vpc_name
+#   subnet_name                = module.projet_de_specialite_subnet_private.subnet_name
+#   compute_private_ip         = "10.2.0.8"
+#   compute_enable_external_ip = false
+#   compute_tags               = ["projet-de-specialite-compute", "projet-de-specialite-compute-private", "projet-de-specialite-compute-private-feed"]
+#   depends_on = [
+#     module.projet_de_specialite_vpc,
+#     module.projet_de_specialite_subnet_private,
+#     google_project.project,
+#     google_project_service.projet_de_specialite_services
+#   ]
+# }
