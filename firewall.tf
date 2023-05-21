@@ -26,19 +26,19 @@ resource "google_compute_firewall" "projet-de-specialite-cloud-sql" {
   destination_ranges = ["10.2.0.0/16"]
 }
 
-resource "google_compute_firewall" "projet-de-specialite-firewall-private-interconnect" {
-  name     = "projet-de-specialite-firewall-private-interconnect"
-  network  = module.projet_de_specialite_vpc.vpc_name
-  priority = 500
+# resource "google_compute_firewall" "projet-de-specialite-firewall-private-interconnect" {
+#   name     = "projet-de-specialite-firewall-private-interconnect"
+#   network  = module.projet_de_specialite_vpc.vpc_name
+#   priority = 500
 
-  allow {
-    protocol = "all"
-    ports    = []
-  }
+#   allow {
+#     protocol = "all"
+#     ports    = []
+#   }
 
-  source_tags = ["projet-de-specialite-compute-private"]
-  target_tags = ["projet-de-specialite-compute-private"]
-}
+#   source_tags = ["projet-de-specialite-compute-private"]
+#   target_tags = ["projet-de-specialite-compute-private"]
+# }
 
 resource "google_compute_firewall" "projet-de-specialite-firewall-public-private-interconnect" {
   name     = "projet-de-specialite-firewall-public-private-interconnect"
