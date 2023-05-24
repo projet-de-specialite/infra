@@ -4,8 +4,8 @@ resource "google_compute_firewall" "projet-de-specialite-firewall-public-allow-s
   priority = 500
 
   allow {
-    protocol = "all"
-    ports    = []
+    protocol = "tcp"
+    ports    = ["22"]
   }
 
   target_tags   = ["projet-de-specialite-compute-public"]
