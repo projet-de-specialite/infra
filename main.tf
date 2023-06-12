@@ -66,7 +66,7 @@ module "projet_de_specialite_nat" {
 module "projet_de_specialite_instance_public_app" {
   source                         = "./modules/compute"
   compute_name                   = "projet-de-specialite-compute-public-app"
-  compute_type                   = "e2-micro"
+  compute_type                   = "n2-highcpu-4"
   compute_os                     = "ubuntu-os-cloud/ubuntu-2204-lts"
   compute_ssh_key                = "gaetanlhf:${file("ssh_keys/gaetanlhf.pub")}\nsharonn:${file("ssh_keys/sharonn.pub")}\nchorouq:${file("ssh_keys/chorouq.pub")}\nmouad:${file("ssh_keys/mouad.pub")}\nloic:${file("ssh_keys/loic.pub")}\naugustin:${file("ssh_keys/augustin.pub")}\nsohaib:${file("ssh_keys/sohaib.pub")}"
   vpc_name                       = module.projet_de_specialite_vpc.vpc_name

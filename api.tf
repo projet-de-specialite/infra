@@ -9,6 +9,7 @@ variable "gcp_service_list" {
     "firestore.googleapis.com",
     "datastore.googleapis.com",
     "monitoring.googleapis.com",
+    "logging.googleapis.com ",
     "servicenetworking.googleapis.com",
     "dns.googleapis.com",
     "cloudbilling.googleapis.com",
