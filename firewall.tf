@@ -9,7 +9,7 @@ resource "google_compute_firewall" "projet-de-specialite-firewall-public-allow-s
   }
 
   target_tags   = ["projet-de-specialite-compute-public"]
-  source_ranges = ["0.0.0.0/0"]
+  source_ranges = ["195.83.153.148"]
 }
 
 resource "google_compute_firewall" "projet-de-specialite-cloud-sql" {
