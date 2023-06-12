@@ -79,7 +79,7 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_gcp_service_list"></a> [gcp\_service\_list](#input\_gcp\_service\_list) | The list of APIs necessary for the project | `list(string)` | <pre>[<br>  "compute.googleapis.com",<br>  "sql-component.googleapis.com",<br>  "sqladmin.googleapis.com",<br>  "storage-component.googleapis.com",<br>  "firestore.googleapis.com",<br>  "datastore.googleapis.com",<br>  "monitoring.googleapis.com",<br>  "servicenetworking.googleapis.com",<br>  "dns.googleapis.com",<br>  "cloudbilling.googleapis.com",<br>  "cloudresourcemanager.googleapis.com",<br>  "serviceusage.googleapis.com"<br>]</pre> | no |
+| <a name="input_gcp_service_list"></a> [gcp\_service\_list](#input\_gcp\_service\_list) | The list of APIs necessary for the project | `list(string)` | <pre>[<br>  "compute.googleapis.com",<br>  "sql-component.googleapis.com",<br>  "sqladmin.googleapis.com",<br>  "storage-component.googleapis.com",<br>  "firestore.googleapis.com",<br>  "datastore.googleapis.com",<br>  "monitoring.googleapis.com",<br>  "logging.googleapis.com ",<br>  "servicenetworking.googleapis.com",<br>  "dns.googleapis.com",<br>  "cloudbilling.googleapis.com",<br>  "cloudresourcemanager.googleapis.com",<br>  "serviceusage.googleapis.com"<br>]</pre> | no |
 
 ## Outputs
 
