@@ -64,17 +64,17 @@ module "projet_de_specialite_nat" {
 }
 
 module "projet_de_specialite_instance_public_app" {
-  source                     = "./modules/compute"
-  compute_name               = "projet-de-specialite-compute-public-app"
-  compute_type               = "e2-micro"
-  compute_os                 = "ubuntu-os-cloud/ubuntu-2204-lts"
-  compute_ssh_key            = "gaetanlhf:${file("ssh_keys/gaetanlhf.pub")}\nsharonn:${file("ssh_keys/sharonn.pub")}\nchorouq:${file("ssh_keys/chorouq.pub")}\nmouad:${file("ssh_keys/mouad.pub")}\nloic:${file("ssh_keys/loic.pub")}\naugustin:${file("ssh_keys/augustin.pub")}\nsohaib:${file("ssh_keys/sohaib.pub")}"
-  vpc_name                   = module.projet_de_specialite_vpc.vpc_name
-  subnet_name                = module.projet_de_specialite_subnet_public.subnet_name
-  compute_private_ip         = "10.1.0.2"
-  compute_enable_external_ip = true
+  source                         = "./modules/compute"
+  compute_name                   = "projet-de-specialite-compute-public-app"
+  compute_type                   = "n2-highcpu-4"
+  compute_os                     = "ubuntu-os-cloud/ubuntu-2204-lts"
+  compute_ssh_key                = "gaetanlhf:${file("ssh_keys/gaetanlhf.pub")}\nsharonn:${file("ssh_keys/sharonn.pub")}\nchorouq:${file("ssh_keys/chorouq.pub")}\nmouad:${file("ssh_keys/mouad.pub")}\nloic:${file("ssh_keys/loic.pub")}\naugustin:${file("ssh_keys/augustin.pub")}\nsohaib:${file("ssh_keys/sohaib.pub")}"
+  vpc_name                       = module.projet_de_specialite_vpc.vpc_name
+  subnet_name                    = module.projet_de_specialite_subnet_public.subnet_name
+  compute_private_ip             = "10.1.0.2"
+  compute_enable_external_ip     = true
   compute_service_account_scopes = ["logging-write", "monitoring-write"]
-  compute_tags               = ["projet-de-specialite-compute", "projet-de-specialite-compute-public", "projet-de-specialite-compute-public-app"]
+  compute_tags                   = ["projet-de-specialite-compute", "projet-de-specialite-compute-public", "projet-de-specialite-compute-public-app"]
   depends_on = [
     module.projet_de_specialite_vpc,
     module.projet_de_specialite_subnet_public,
@@ -204,9 +204,9 @@ module "projet_de_specialite_service_account_auth" {
 }
 
 module "projet_de_specialite_db_auth" {
-  source                       = "./modules/cloud-sql-database"
-  cloud_sql_database_name      = "projet-de-specialite-db-auth"
-  cloud_sql_database_instance  = module.projet_de_specialite_instance_cloud_sql_mysql.db_instance_name
+  source                      = "./modules/cloud-sql-database"
+  cloud_sql_database_name     = "projet-de-specialite-db-auth"
+  cloud_sql_database_instance = module.projet_de_specialite_instance_cloud_sql_mysql.db_instance_name
   depends_on = [
     module.projet_de_specialite_instance_cloud_sql_mysql,
     google_project.project,
@@ -353,9 +353,9 @@ module "projet_de_specialite_bucket_profile" {
 }
 
 module "projet_de_specialite_db_profile" {
-  source                       = "./modules/cloud-sql-database"
-  cloud_sql_database_name      = "projet-de-specialite-db-profile"
-  cloud_sql_database_instance  = module.projet_de_specialite_instance_cloud_sql_mysql.db_instance_name
+  source                      = "./modules/cloud-sql-database"
+  cloud_sql_database_name     = "projet-de-specialite-db-profile"
+  cloud_sql_database_instance = module.projet_de_specialite_instance_cloud_sql_mysql.db_instance_name
   depends_on = [
     module.projet_de_specialite_instance_cloud_sql_postgres,
     google_project.project,
